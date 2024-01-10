@@ -4,50 +4,27 @@
     <ul class="navbar-nav">
         <div class="float-left d-none d-sm-inline-block" style="color: white">
             <a href="/" target="_blank" class="social-icon" style="font-size: xx-large; color:white"><i class="fas fa-leaf fa-2x" style="font-size: xx-large;color: white"></i>ChainHarvest</a>      
-        </div>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        </div> 
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
+        <a style="background: whitesmoke; color:black" href="/" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-          <select class="form-control">
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
-            <option>option 4</option>
-            <option>option 5</option>
-          </select>
+      <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
+        <a style="background: whitesmoke; color:black" href="login" class="nav-link">Login</a>
       </li>
-      
+      <li class="nav-item d-none d-sm-inline-block ml-auto">
+        <a style="background: whitesmoke; color:black" href="register" class="nav-link">Registration</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-
+    {{--<ul class="navbar-nav ml-auto">
+      
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
+          <i class="far fa-user"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -128,6 +105,6 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
-    </ul>
+      </li> 
+    </ul>--}}
   </nav>

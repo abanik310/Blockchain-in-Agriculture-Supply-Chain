@@ -45,11 +45,21 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
             <div class="card">
                     <div class="card-body" style="padding: 0;">
-                        <!-- Replace existing content with the image -->
-                        <img src="https://www.eos-intelligence.com/wp-content/uploads/2020/09/Agritech-in-Africa-How-Blockchain-Can-Help-Revolutionize-Agriculture.jpg" class="img-fluid" alt="Agriculture Image" style="height: 50%;">
+                        <img src="/image/back.jpg" class="img-fluid" alt="Agriculture Image" style="height: 50%;">
+
+                    </div>
+                
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+                    <div class="card-body" style="padding: 0;">
+                      <p style="margin-left: 250px;font-size: xx-large" class="card-title"><b>At a Glance</b></p><br>
+                        <br><img src="/image/benefit.jpg" class="img-fluid" alt="Agriculture Image" style="height: 50%;">
+
                     </div>
                 
             </div>
@@ -156,108 +166,16 @@
             </div>
           </div>
           </div>
-          
-            {{-- <div class="card col-lg-3">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 style="margin:auto; font-size: xx-large" class="card-title"><b>BENEFITS</b></h3>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="card">
-                  <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                      <h3 class="card-title">Digitalized Crop Sourcing Processes</h3>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <p>Manage processes in a vertically integrated crop supply chain through a centralized digital agriculture platform. Bring the platform to farms in your supply chain and digitalize your crop sourcing processes.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-              <div class="card col-lg-3">
-              <div class="card-body" style="position: relative">
-                <div class="card">
-                  <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                      <h3 class="card-title">Digitalized Crop Sourcing Processes</h3>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <p>Manage processes in a vertically integrated crop supply chain through a centralized digital agriculture platform. Bring the platform to farms in your supply chain and digitalize your crop sourcing processes.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card col-lg-3">
-              <div class="card-body" style="position: relative">
-                <div class="card">
-                  <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                      <h3 class="card-title">Digitalized Crop Sourcing Processes</h3>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <p>Manage processes in a vertically integrated crop supply chain through a centralized digital agriculture platform. Bring the platform to farms in your supply chain and digitalize your crop sourcing processes.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card col-lg-3">
-              <div class="card-body" style="position: relative">
-                <div class="card">
-                  <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                      <h3 class="card-title">Digitalized Crop Sourcing Processes</h3>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <p>Manage processes in a vertically integrated crop supply chain through a centralized digital agriculture platform. Bring the platform to farms in your supply chain and digitalize your crop sourcing processes.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="card">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Online Store Visitors</h3>
-                  <a href="javascript:void(0);">View Report</a>
-                </div>
+              <div class="card-body login-card-body">
+                <div class="card-body" style="padding: 0;">
+                  <!-- Replace existing content with the image -->
+                  <img src="/image/benefit.JPG" class="img-fluid" alt="Agriculture Image" style="height: 50%;">
               </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
-                    <span>Visitors Over Time</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5%
-                    </span>
-                    <span class="text-muted">Since last week</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="visitors-chart" height="200"></canvas>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This Week
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Last Week
-                  </span>
-                </div>
               </div>
-            </div> --}}
-            <!-- /.card -->
+            </div>
+          </div>
 
             <div class="card">
               <div class="card-header border-0">
@@ -363,6 +281,7 @@
                 </table>
               </div>
             </div>
+            
             <!-- /.card -->
           </div>
           <!-- /.col-md-6 -->
@@ -475,17 +394,15 @@
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer" style="margin-left: 0px; background: forestgreen; text-align: center; padding: 40px">
-    <strong style="font-size: x-large;color: white;">Copyright &copy; 2024 <a href="#" style="color: black">Abu Bakar Siddiq</a>.
-    All rights reserved.</strong>
-    <div class="float-left d-none d-sm-inline-block" style="color: white">
-      <a href="#" target="_blank" class="social-icon"><i class="fab fa-facebook fa-3x" style="color: white"></i></a>
-      <a href="#" target="_blank" class="social-icon"><i class="fab fa-skype fa-3x" style="color: white"></i></a>
-      <a href="#" target="_blank" class="social-icon"><i class="fab fa-youtube fa-3x" style="color: white"></i></a>
-
-      
-    </div>
-  </footer>
+<footer class="main-footer" style="margin-left: 0px; background: forestgreen; text-align: center; padding: 40px">
+  <strong style="font-size: x-large;color: white;">Copyright &copy; 2024 <a href="#" style="color: black">Abu Bakar Siddiq</a>.
+  All rights reserved.</strong>
+  <div class="float-left d-none d-sm-inline-block" style="color: white">
+    <a href="#" target="_blank" class="social-icon"><i class="fab fa-facebook fa-3x" style="color: white"></i></a>
+    <a href="#" target="_blank" class="social-icon"><i class="fab fa-skype fa-3x" style="color: white"></i></a>
+    <a href="#" target="_blank" class="social-icon"><i class="fab fa-youtube fa-3x" style="color: white"></i></a>
+  </div>
+</footer>
 </div>
 <!-- ./wrapper -->
 
