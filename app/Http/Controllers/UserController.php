@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function landing_page()
+{
+    $farmer = User::where('usertype', 'farmer')->get();
+    $processor = User::where('usertype', 'processor')->get();
+    $distributor = User::where('usertype', 'distributor')->get();
+    $retailer = User::where('usertype', 'retailer')->get();
+    $consumer = User::where('usertype', 'consumer')->get();
+
+    return view('landing_page', [
+        'farmer' => $farmer,
+        'processor' => $processor,
+        'distributor' => $distributor,
+        'retailer' => $retailer,
+        'consumer' => $consumer,
+    ]);
+}
+
     function login()
     {
         return view('login');
@@ -25,12 +42,13 @@ class UserController extends Controller
 
     public function checkLogin(Request $request)
     {
-        $credentials = $request->only('username', 'password');
-
-        $user = User::where('username', $credentials['username'])->first();
-
+        $credentials = $request->only('usertype','username', 'password');
+        //echo "<pre>"; print_r($credentials);exit;
+        $user = User::where('username', $credentials['username'])->where('usertype',$credentials['usertype'])->first();
+        //echo $user;exit;
         if ($user && Auth::guard('web')->attempt($credentials)) {
-            session(['fullname' => $user->fullname]);
+            session(['fullname' => $user->fullname, 'usertype' => $user->usertype]);
+
             return redirect()->intended('/dashboard');
         }
         return redirect()->back()->with('error', 'Invalid username or password');
@@ -46,6 +64,7 @@ class UserController extends Controller
         $user = new User;
         $user->fullname = $request->fullname;
         $user->username = $request->username;
+        $user->usertype = $request->usertype;
         $user->email = $request->email;
         $user->password = bcrypt($request->password); // Hash the password
         $user->save();
@@ -53,10 +72,25 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User Creation Successfully Done!');
                 
     }
-
+    
     function dashboard(Request $request)
     {     
         return view('dashboard');
+    }
+
+    function user_profile(Request $request)
+    {     
+        return view('view_profile');
+    }
+
+    function orders(Request $request)
+    {     
+        return view('view_order');
+    }
+
+    function products(Request $request)
+    {     
+        return view('view_product');
     }
 
 }

@@ -123,7 +123,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('partials.nav')
+  @include('partials.home_nav')
 
   <!-- Main Sidebar Container -->
   
@@ -190,11 +190,13 @@
                     </div>
                   </div>
                   <div class="input-group mb-3">
-                    <select class="form-control" required>
+                    <select name="usertype" class="form-control" required>
                       <option>Select a user type</option>
-                      <option value="consumer">Consumer</option>
                       <option value="farmer">Farmer</option>
-                      <option value="producer">Producer</option>
+                      <option value="processor">Processor</option>
+                      <option value="distributor">Distributor</option>
+                      <option value="retailer">Retailer</option>
+                      <option value="consumer">Consumer</option>
                     </select>
                   </div>
                   <div class="input-group mb-3">

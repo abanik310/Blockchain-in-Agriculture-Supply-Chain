@@ -17,7 +17,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  @include('partials.nav')
+  @include('partials.home_nav')
 
   <!-- Main Sidebar Container -->
   
@@ -161,6 +161,192 @@
                       <p>Analyze your supply chain climate footprint, land and water use, impact on environment and supplier livelihoods. Meet your sustainability goals.</p>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="container-fluid">
+            <div class="card col-lg-12">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 style="margin:auto; font-size: xx-large" class="card-title"><b>Clients</b></h3>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <!-- Your first card content here -->
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title" style="text-align:center">Farmers</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="card-body table-responsive p-0">
+                      <table class="table table-striped table-valign-middle">
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Mobile</th>
+                          <th>Review</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($farmer as $farmer)
+                          <tr>
+                              <td>{{ $farmer->username }}</td>
+                              <td>{{ $farmer->email }}</td>
+                              <td>{{ $farmer->mobile }}</td>
+                              <td>{{ $farmer->review }}</td>
+                              <!-- Add more columns as needed -->
+                          </tr>
+                      @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Your first card content here -->
+              <div class="card">
+              <div class="card-header">
+                <h3 class="card-title" style="text-align:center">Processors</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Review</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($processor as $processor)
+                    <tr>
+                        <td>{{ $processor->username }}</td>
+                        <td>{{ $processor->email }}</td>
+                        <td>{{ $processor->mobile }}</td>
+                        <td>{{ $processor->review }}</td>
+                        <!-- Add more columns as needed -->
+                    </tr>
+                @endforeach
+                  </tbody>
+                </table>
+              </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Your first card content here -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title" style="text-align:center">Distributors</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle">
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Review</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($distributor as $distributor)
+                        <tr>
+                            <td>{{ $distributor->username }}</td>
+                            <td>{{ $distributor->email }}</td>
+                            <td>{{ $distributor->mobile }}</td>
+                            <td>{{ $distributor->review }}</td>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Your second card content here -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title" style="text-align:center">Retailers</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle">
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Review</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($retailer as $retailer)
+                        <tr>
+                            <td>{{ $retailer->username }}</td>
+                            <td>{{ $retailer->email }}</td>
+                            <td>{{ $retailer->mobile }}</td>
+                            <td>{{ $retailer->review }}</td>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Your third card content here -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title" style="text-align:center">Consumers</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="card-body table-responsive p-0">
+                    <table class="table table-striped table-valign-middle">
+                      <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Review</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($consumer as $consumer)
+                        <tr>
+                            <td>{{ $consumer->username }}</td>
+                            <td>{{ $consumer->email }}</td>
+                            <td>{{ $consumer->mobile }}</td>
+                            <td>{{ $consumer->review }}</td>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
+                  <!-- /.card-body -->
                 </div>
               </div>
             </div>

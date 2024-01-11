@@ -13,9 +13,11 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('landing_page');
-});
+// Route::get('/', function () {
+//     return view('landing_page');
+// });
+Route::get('/', ['as' => '', 'uses' => '\App\Http\Controllers\UserController@landing_page']);
+
 Route::get('/login', ['as' => 'login', 'uses' => '\App\Http\Controllers\UserController@login']);
 Route::post('/check_login', ['as' => 'check_login', 'uses' => '\App\Http\Controllers\UserController@checkLogin']);
 Route::get('/logout', ['as' => 'logout', 'uses' => '\App\Http\Controllers\UserController@logout']);
@@ -25,6 +27,9 @@ Route::post('/register_user', ['as' => 'register_user', 'uses' => '\App\Http\Con
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', ['as' => 'dashboard', 'uses' => '\App\Http\Controllers\UserController@dashboard']);
-    
+    Route::get('/user_profile', ['as' => 'user_profile', 'uses' => '\App\Http\Controllers\UserController@user_profile']);
+    Route::get('/orders', ['as' => 'orders', 'uses' => '\App\Http\Controllers\UserController@orders']);
+    Route::get('/products', ['as' => 'products', 'uses' => '\App\Http\Controllers\UserController@products']);
+
 });
 
