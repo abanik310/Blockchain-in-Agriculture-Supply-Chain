@@ -29,7 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', ['as' => 'dashboard', 'uses' => '\App\Http\Controllers\UserController@dashboard']);
     Route::get('/user_profile', ['as' => 'user_profile', 'uses' => '\App\Http\Controllers\UserController@user_profile']);
     Route::get('/orders', ['as' => 'orders', 'uses' => '\App\Http\Controllers\UserController@orders']);
-    Route::get('/products', ['as' => 'products', 'uses' => '\App\Http\Controllers\UserController@products']);
+    Route::get('/products', ['as' => 'products', 'uses' => '\App\Http\Controllers\CropController@products']);
+    Route::get('/add_product', ['as' => 'add_product', 'uses' => '\App\Http\Controllers\CropController@add_product']);
+    Route::get('/add_crops', ['as' => 'add_crops', 'uses' => '\App\Http\Controllers\CropController@add_crops']);
+
 
 });
 

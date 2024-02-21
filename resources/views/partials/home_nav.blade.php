@@ -7,9 +7,9 @@
         </div> 
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
+      {{-- <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
         <a style="background: whitesmoke; color:black" href="/" class="nav-link">Home</a>
-      </li>
+      </li> --}}
       <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
         <a style="background: whitesmoke; color:black" href="login" class="nav-link">Login</a>
       </li>

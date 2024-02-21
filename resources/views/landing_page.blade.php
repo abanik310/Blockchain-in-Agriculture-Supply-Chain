@@ -178,7 +178,7 @@
                 <!-- Your first card content here -->
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title" style="text-align:center">Farmers</h3>
+                      <h3 class="card-title" style="text-align:center"><b>Farmers</b></h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -195,7 +195,7 @@
                         <tbody>
                           @foreach ($farmer as $farmer)
                           <tr>
-                              <td>{{ $farmer->username }}</td>
+                              <td>{{ $farmer->fullname }}</td>
                               <td>{{ $farmer->email }}</td>
                               <td>{{ $farmer->mobile }}</td>
                               <td>{{ $farmer->review }}</td>
@@ -209,116 +209,49 @@
                     <!-- /.card-body -->
                   </div>
               </div>
+              
               <div class="col-lg-4">
                 <!-- Your first card content here -->
-              <div class="card">
-              <div class="card-header">
-                <h3 class="card-title" style="text-align:center">Processors</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Review</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($processor as $processor)
-                    <tr>
-                        <td>{{ $processor->username }}</td>
-                        <td>{{ $processor->email }}</td>
-                        <td>{{ $processor->mobile }}</td>
-                        <td>{{ $processor->review }}</td>
-                        <!-- Add more columns as needed -->
-                    </tr>
-                @endforeach
-                  </tbody>
-                </table>
-              </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-              </div>
-              <div class="col-lg-4">
-                <!-- Your first card content here -->
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title" style="text-align:center">Distributors</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Review</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($distributor as $distributor)
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title" style="text-align:center"><b>Logistic Company</b></h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="card-body table-responsive p-0">
+                      <table class="table table-striped table-valign-middle">
+                        <thead>
                         <tr>
-                            <td>{{ $distributor->username }}</td>
-                            <td>{{ $distributor->email }}</td>
-                            <td>{{ $distributor->mobile }}</td>
-                            <td>{{ $distributor->review }}</td>
-                            <!-- Add more columns as needed -->
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Mobile</th>
+                          <th>Review</th>
                         </tr>
-                    @endforeach
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          @foreach ($logistic_company as $logistic_company)
+                          <tr>
+                              <td>{{ $logistic_company->fullname }}</td>
+                              <td>{{ $logistic_company->email }}</td>
+                              <td>{{ $logistic_company->mobile }}</td>
+                              <td>{{ $logistic_company->review }}</td>
+                              <!-- Add more columns as needed -->
+                          </tr>
+                      @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                    </div>
+                    <!-- /.card-body -->
                   </div>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
               </div>
-              <div class="col-lg-4">
-                <!-- Your second card content here -->
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title" style="text-align:center">Retailers</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Review</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($retailer as $retailer)
-                        <tr>
-                            <td>{{ $retailer->username }}</td>
-                            <td>{{ $retailer->email }}</td>
-                            <td>{{ $retailer->mobile }}</td>
-                            <td>{{ $retailer->review }}</td>
-                            <!-- Add more columns as needed -->
-                        </tr>
-                    @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
-              </div>
+              
+              
               <div class="col-lg-4">
                 <!-- Your third card content here -->
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title" style="text-align:center">Consumers</h3>
+                    <h3 class="card-title" style="text-align:center"><b>Consumers</b></h3>
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
@@ -335,7 +268,7 @@
                       <tbody>
                         @foreach ($consumer as $consumer)
                         <tr>
-                            <td>{{ $consumer->username }}</td>
+                            <td>{{ $consumer->fullname }}</td>
                             <td>{{ $consumer->email }}</td>
                             <td>{{ $consumer->mobile }}</td>
                             <td>{{ $consumer->review }}</td>

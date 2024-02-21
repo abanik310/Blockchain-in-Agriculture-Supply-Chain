@@ -37,10 +37,20 @@
               <p>Dashboard</p>
             </a>
           </li>
+          @if(session('usertype') == "logistic_company")
+          <li class="nav-item">
+            <a href="/products" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-box"></i>
+                <p><i class="fas fa-investigation"></i> Investigation</p>
+            </a>
+        </li>
+          @endif
+          @if(session('usertype') != "logistic_company")
+          
           <li class="nav-item">
             <a href="/products" class="nav-link" style="color:white">
               <i class="nav-icon fas fa-box"></i>
-              <p>My Products</p>
+              <p>My Crops</p>
             </a>
           </li>
           <li class="nav-item">
@@ -212,6 +222,7 @@
                   <p>Contact us</p>
                 </a>
               </li>
+            @endif
             </ul>
           </li>
         </ul>

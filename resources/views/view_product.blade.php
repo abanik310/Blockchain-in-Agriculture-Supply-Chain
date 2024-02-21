@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Products</title>
+  <title>Crops</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -41,15 +41,52 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Products</h1>
+            <h1 class="m-0">My Crops</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Products</li>
+              <li class="breadcrumb-item active">My Crops</li>
             </ol>
           </div><!-- /.col -->
-        </div><!-- /.row -->
+        </div>
+          
+
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-end align-items-center">
+                  <button class="btn btn-primary" onclick="location.href='/add_product'">Add New Crops</button>
+              </div>
+          </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                  <div class="card-body table-responsive p-0">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered table-hover">
+                          <thead>
+                              <tr>
+                                  <th>Crop Name</th>
+                                  <th>Growing Type</th>
+                                  <th>Harvesting Type</th>
+                                  <th>Sourcing Type</th>
+                                  <th>GMO Type</th>
+                                  <th>Description</th>
+                                  <th>Quantity</th>
+                                  <th>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <!-- Your table body content here -->
+                          </tbody>
+                      </table>
+                  </div>
+                  </div>
+              </div>
+              <!-- /.card-body -->
+          </div>
+      </div>
+        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
   </div>

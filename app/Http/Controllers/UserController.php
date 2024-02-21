@@ -11,16 +11,12 @@ class UserController extends Controller
     public function landing_page()
 {
     $farmer = User::where('usertype', 'farmer')->get();
-    $processor = User::where('usertype', 'processor')->get();
-    $distributor = User::where('usertype', 'distributor')->get();
-    $retailer = User::where('usertype', 'retailer')->get();
+    $logistic_company = User::where('usertype', 'logistic_company')->get();
     $consumer = User::where('usertype', 'consumer')->get();
 
     return view('landing_page', [
         'farmer' => $farmer,
-        'processor' => $processor,
-        'distributor' => $distributor,
-        'retailer' => $retailer,
+        'logistic_company' => $logistic_company,
         'consumer' => $consumer,
     ]);
 }
@@ -91,6 +87,11 @@ class UserController extends Controller
     function products(Request $request)
     {     
         return view('view_product');
+    }
+
+    function add_product(Request $request)
+    {     
+        return view('add_product');
     }
 
 }

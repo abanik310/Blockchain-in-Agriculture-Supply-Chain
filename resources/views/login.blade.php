@@ -71,9 +71,7 @@
                     <select name="usertype" class="form-control" required>
                       <option>Select a user type</option>
                       <option value="farmer">Farmer</option>
-                      <option value="processor">Processor</option>
-                      <option value="distributor">Distributor</option>
-                      <option value="retailer">Retailer</option>
+                      <option value="logistic_company">Logistic Company</option>
                       <option value="consumer">Consumer</option>
                     </select>
                   </div>
