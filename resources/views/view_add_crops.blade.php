@@ -53,14 +53,18 @@
 
         <div class="col-lg-12">
             <div class="card">
-                
+              @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    {{ session('success') }}
+                </div>
+              @endif
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-6"><br><br>
-                            <form method="post" action="{{ route('add_crops') }}">
+                            <form method="post" action="{{ route('add_new_crops') }}">
                                 {{ csrf_field() }}
                                 <div class="input-group mb-3">
-                                    <input type="text" name="crop_name" class="form-control" placeholder="Crop Name">
+                                    <input type="text" name="crop_name" class="form-control" placeholder="Crop Name" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-leaf"></span>
@@ -76,21 +80,21 @@
                                       </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <select name="harvensting_type" class="form-control" required>
-                                        <option>Select a Harvensting Type</option>
+                                    <select name="harvesting_type" class="form-control" required>
+                                        <option>Select a Harvesting Type</option>
                                         <option value=" by_hand"> By Hand</option>
                                         <option value=" by_machine"> By Machine</option>
                                       </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <select name="sourcing" class="form-control" required>
+                                    <select name="sourcing_type" class="form-control" required>
                                         <option>Select a Sourcing Type </option>
-                                        <option value=" locally_sourcing"> Locally Sourced</option>
+                                        <option value=" locally_sourced"> Locally Sourced</option>
                                         <option value=" grown_on_farm"> Grown On Farm</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <select name="gmo_status" class="form-control" required>
+                                    <select name="gmo_type" class="form-control" required>
                                         <option>Select a GMO(Genetically Modified) Type </option>
                                         <option value=" gmo"> GMO</option>
                                         <option value=" non_gmo"> Non-GMO</option>
@@ -107,7 +111,14 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="quantity" class="form-control" placeholder="Quantity">
+                                  <select name="quantity_type" class="form-control" required>
+                                      <option>Quantity Type </option>
+                                      <option value=" piece"> Piece</option>
+                                      <option value=" kg"> KG</option>
+                                    </select>
+                              </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" name="quantity" class="form-control" placeholder="Quantity" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-balance-scale"></span>
@@ -115,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="price" class="form-control" placeholder="Price">
+                                    <input type="text" name="price" class="form-control" placeholder="Price" required>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-dollar-sign"></span>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ChainHarvest - Decentralized Agri-Supply Chain</title>
+  <title>ChainHarvest - A Blockchain Based Agri Marketplace</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -201,7 +201,7 @@
                               <td>{{ $farmer->review }}</td>
                               <!-- Add more columns as needed -->
                           </tr>
-                      @endforeach
+                          @endforeach
                         </tbody>
                       </table>
                     </div>

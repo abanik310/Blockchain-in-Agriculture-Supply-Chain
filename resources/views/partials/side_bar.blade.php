@@ -48,7 +48,7 @@
           @if(session('usertype') != "logistic_company")
           
           <li class="nav-item">
-            <a href="/products" class="nav-link" style="color:white">
+            <a href="/crops" class="nav-link" style="color:white">
               <i class="nav-icon fas fa-box"></i>
               <p>My Crops</p>
             </a>

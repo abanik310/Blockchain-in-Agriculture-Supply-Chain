@@ -43,7 +43,7 @@ class UserController extends Controller
         $user = User::where('username', $credentials['username'])->where('usertype',$credentials['usertype'])->first();
         //echo $user;exit;
         if ($user && Auth::guard('web')->attempt($credentials)) {
-            session(['fullname' => $user->fullname, 'usertype' => $user->usertype]);
+            session(['fullname' => $user->fullname, 'usertype' => $user->usertype, 'user_id' => $user->id]);
 
             return redirect()->intended('/dashboard');
         }

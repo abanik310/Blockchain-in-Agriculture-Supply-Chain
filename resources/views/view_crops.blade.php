@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crops</title>
+  <title>My Crops</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -56,7 +56,7 @@
           <div class="card">
             <div class="card-header">
               <div class="d-flex justify-content-end align-items-center">
-                  <button class="btn btn-primary" onclick="location.href='/add_product'">Add New Crops</button>
+                  <button class="btn btn-primary" onclick="location.href='/view_add_crops'">Add New Crops</button>
               </div>
           </div>
               <!-- /.card-header -->
@@ -72,12 +72,27 @@
                                   <th>Sourcing Type</th>
                                   <th>GMO Type</th>
                                   <th>Description</th>
+                                  <th>Quantity Type</th>
                                   <th>Quantity</th>
                                   <th>Price</th>
                               </tr>
                           </thead>
                           <tbody>
                               <!-- Your table body content here -->
+                              @foreach ($my_crops as $my_crops)
+                          <tr>
+                              <td>{{ $my_crops->crop_name }}</td>
+                              <td>{{ $my_crops->growing_type }}</td>
+                              <td>{{ $my_crops->harvesting_type }}</td>
+                              <td>{{ $my_crops->sourcing_type }}</td>
+                              <td>{{ $my_crops->gmo_type }}</td>
+                              <td>{{ $my_crops->description }}</td>
+                              <td>{{ $my_crops->quantity_type }}</td>
+                              <td>{{ $my_crops->quantity }}</td>
+                              <td>{{ $my_crops->price }} per {{ $my_crops->quantity_type }}</td>
+                              <!-- Add more columns as needed -->
+                          </tr>
+                          @endforeach
                           </tbody>
                       </table>
                   </div>
