@@ -26,7 +26,6 @@ class CropController extends Controller
     function add_new_crops(Request $request)
     {     
         $new_crops = new NewCrops;
-        //print_r($request->session()->get('user_id'));exit;
 
         $new_crops->crop_name = $request->crop_name;
         $new_crops->growing_type = $request->growing_type;
