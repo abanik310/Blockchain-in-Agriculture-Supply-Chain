@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\models\User;
+use App\models\NewCrops;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -71,7 +72,11 @@ class UserController extends Controller
     
     function dashboard(Request $request)
     {     
-        return view('dashboard');
+        $my_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->get();
+
+        return view('dashboard',[
+            'my_crops' => $my_crops,
+        ]);
     }
 
     function user_profile(Request $request)

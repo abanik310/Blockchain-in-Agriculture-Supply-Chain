@@ -37,11 +37,20 @@ class CropController extends Controller
         $new_crops->quantity_type = $request->quantity_type;
         $new_crops->quantity = $request->quantity;
         $new_crops->price = $request->price;
+        $new_crops->status = $request->status;
         $new_crops->user_id = $request->session()->get('user_id');
                         
         $new_crops->save();
 
         return redirect()->back()->with('success', 'New Crop Added Successfully!');
+    }
+
+    function crop_timeline(Request $request)
+    {     
+        $my_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->get();
+        return view('view_crop_timeline',[
+            'my_crops' => $my_crops,
+        ]);
     }
 
     function view_investigation(Request $request)
