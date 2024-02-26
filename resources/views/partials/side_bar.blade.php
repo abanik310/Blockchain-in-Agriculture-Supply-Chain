@@ -39,7 +39,7 @@
           </li>
           @if(session('usertype') == "logistic_company")
           <li class="nav-item">
-            <a href="/products" class="nav-link" style="color:white">
+            <a href="/view_investigation" class="nav-link" style="color:white">
                 <i class="nav-icon fas fa-box"></i>
                 <p><i class="fas fa-investigation"></i> Investigation</p>
             </a>

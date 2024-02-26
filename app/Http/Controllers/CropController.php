@@ -6,6 +6,7 @@ use App\models\NewCrops;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class CropController extends Controller
 {
@@ -41,6 +42,16 @@ class CropController extends Controller
         $new_crops->save();
 
         return redirect()->back()->with('success', 'New Crop Added Successfully!');
+    }
+
+    function view_investigation(Request $request)
+    {     
+        $investigation_info = DB::table("tbl_users")
+            ->join('tbl_crops', 'tbl_crops.user_id', '=', 'tbl_users.id')
+            ->select('tbl_users.*', 'tbl_crops.*')
+            ->get();
+        //echo "<pre>";print_r($investigation_info);exit;
+        return view('view_investigation', ['investigation_info' => $investigation_info]);
     }
 
     
