@@ -58,13 +58,85 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
+          
+          @if(session('usertype') == 'logistic_company')
           <div class="col-lg-3 col-6">
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $my_crops->count() }}</h3>
+                <h3>{{ $initially_uploaded_LC->count() }}</h3>
 
-                <p>Total Crops</p>
+                <p>Initially Uploaded</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <a href="initially_uploaded_LC" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{ $certified_LC->count() }}</h3>
+
+                <p>Certified</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-certificate"></i>
+              </div>
+              <a href="certified_crops" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          @endif
+
+          @if(session('usertype') == 'farmer')
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ $initially_uploaded->count() }}</h3>
+
+                <p>Initially Uploaded</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <a href="initially_uploaded_crops" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{ $certified->count() }}</h3>
+
+                <p>Certified</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-certificate"></i>
+              </div>
+              <a href="certified_crops" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-secondary">
+              <div class="inner">
+                <h3>{{ $finally_uploaded->count() }}</h3>
+
+                <p>Finally Uploaded</p>
               </div>
               <div class="icon">
                 <i class="fas fa-seedling"></i>
@@ -74,6 +146,24 @@
               </a>
             </div>
           </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ $sold->count() }}</h3>
+
+                <p>Sold</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          @endif
         </div>
         <!-- /.row -->
       </div>

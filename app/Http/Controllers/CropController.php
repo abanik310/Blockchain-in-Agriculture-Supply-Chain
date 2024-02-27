@@ -19,6 +19,23 @@ class CropController extends Controller
         ]);
     }
 
+    function initially_uploaded_crops(Request $request)
+    {     
+        $initially_uploaded_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'initially_uploaded_crops')->get();
+        return view('initially_uploaded_crops',[
+            'initially_uploaded_crops' => $initially_uploaded_crops,
+        ]);
+    }
+
+    function certified_crops(Request $request)
+    {     
+        $certified_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'certified_crops')->get();
+        return view('certified_crops',[
+            'certified_crops' => $certified_crops,
+        ]);
+    }
+    
+
     function view_add_crops(Request $request)
     {     
         return view('view_add_crops');
@@ -37,7 +54,7 @@ class CropController extends Controller
         $new_crops->quantity_type = $request->quantity_type;
         $new_crops->quantity = $request->quantity;
         $new_crops->price = $request->price;
-        $new_crops->status = $request->status;
+        $new_crops->status = 'initially_uploaded';
         $new_crops->user_id = $request->session()->get('user_id');
                         
         $new_crops->save();
@@ -63,6 +80,28 @@ class CropController extends Controller
         return view('view_investigation', ['investigation_info' => $investigation_info]);
     }
 
+    function initially_uploaded_LC(Request $request)
+    {     
+        $initially_uploaded_LC = DB::table("tbl_users")
+            ->join('tbl_crops', 'tbl_crops.user_id', '=', 'tbl_users.id')
+            ->select('tbl_users.*', 'tbl_crops.*')
+            ->get();
+        return view('view_initially_uploaded_LC',[
+            'initially_uploaded_LC' => $initially_uploaded_LC,
+        ]);
+    }
+
+    function inspect_by_LC($id = 5)
+    {     
+        $inspect_by_LC = DB::table("tbl_crops")
+            ->join('tbl_users', 'tbl_crops.user_id', '=', 'tbl_users.id')
+            ->where('tbl_crops.id', $id)
+            ->get();
+
+        return view('view_inspect_by_LC',[
+            'inspect_by_LC' => $inspect_by_LC,
+        ]);
+    }
     
 
 }

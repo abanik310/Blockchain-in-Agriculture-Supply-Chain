@@ -30,14 +30,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user_profile', ['as' => 'user_profile', 'uses' => '\App\Http\Controllers\UserController@user_profile']);
     Route::get('/orders', ['as' => 'orders', 'uses' => '\App\Http\Controllers\UserController@orders']);
     Route::get('/crops', ['as' => 'crops', 'uses' => '\App\Http\Controllers\CropController@crops']);
+    Route::get('/initially_uploaded_crops', ['as' => 'initially_uploaded_crops', 'uses' => '\App\Http\Controllers\CropController@initially_uploaded_crops']);
+    Route::get('/certified_crops', ['as' => 'certified_crops', 'uses' => '\App\Http\Controllers\CropController@certified_crops']);
+
     //Route::get('/add_product', ['as' => 'add_product', 'uses' => '\App\Http\Controllers\CropController@add_product']);
     Route::get('/view_add_crops', ['as' => 'view_add_crops', 'uses' => '\App\Http\Controllers\CropController@view_add_crops']);
     Route::post('/add_new_crops', ['as' => 'add_new_crops', 'uses' => '\App\Http\Controllers\CropController@add_new_crops']);
-
+    
     Route::get('/crop_timeline', ['as' => 'crop_timeline', 'uses' => '\App\Http\Controllers\CropController@crop_timeline']);
 
     //For Investigation
     Route::get('/view_investigation', ['as' => 'view_investigation', 'uses' => '\App\Http\Controllers\CropController@view_investigation']);
+    Route::get('/initially_uploaded_LC', ['as' => 'initially_uploaded_LC', 'uses' => '\App\Http\Controllers\CropController@initially_uploaded_LC']);
+    Route::get('/inspect_by_LC', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
 
     
 });
