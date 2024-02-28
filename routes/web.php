@@ -38,11 +38,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/add_new_crops', ['as' => 'add_new_crops', 'uses' => '\App\Http\Controllers\CropController@add_new_crops']);
     
     Route::get('/crop_timeline', ['as' => 'crop_timeline', 'uses' => '\App\Http\Controllers\CropController@crop_timeline']);
-
+    
     //For Investigation
     Route::get('/view_investigation', ['as' => 'view_investigation', 'uses' => '\App\Http\Controllers\CropController@view_investigation']);
     Route::get('/initially_uploaded_LC', ['as' => 'initially_uploaded_LC', 'uses' => '\App\Http\Controllers\CropController@initially_uploaded_LC']);
-    Route::get('/inspect_by_LC', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
+    //Route::get('/inspect_by_LC', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
+    Route::get('/inspect_by_LC/{id}', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
+    Route::post('/add_inspection_certificate', ['as' => 'add_inspection_certificate', 'uses' => '\App\Http\Controllers\CropController@add_inspection_certificate']);
+
 
     
 });

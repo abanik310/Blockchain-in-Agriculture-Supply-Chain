@@ -14,7 +14,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  {{-- <link rel="stylesheet" href="dist/css/style.css)">
+  <link rel="stylesheet" href="dist/css/all.min.css)"> --}}
 
 </head>
 
@@ -62,50 +63,76 @@
               @endif
                 <div class="container">
                     <div class="row justify-content-center">
+                      <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                          <thead>
+                              <tr>
+                                  <th>Farmer Name</th>
+                                  <th>Crop Name</th>
+                                  <th>Growing Type</th>
+                                  <th>Harvesting Type</th>
+                                  <th>Sourcing Type</th>
+                                  <th>GMO Type</th>
+                                  <th>Description</th>
+                                  <th>Quantity Type</th>
+                                  <th>Quantity</th>
+                                  <th>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($inspect_by_LC as $info)
+                                  <tr>
+                                      <td>{{ $info->fullname }}</td>
+                                      <td>{{ $info->crop_name }}</td>
+                                      <td>{{ $info->growing_type }}</td>
+                                      <td>{{ $info->harvesting_type }}</td>
+                                      <td>{{ $info->sourcing_type }}</td>
+                                      <td>{{ $info->gmo_type }}</td>
+                                      <td>{{ $info->description }}</td>
+                                      <td>{{ $info->quantity_type }}</td>
+                                      <td>{{ $info->quantity }}</td>
+                                      <td>{{ $info->price }} per {{ $info->quantity_type }}</td>
+                                      
+                                      <!-- Add more columns as needed -->
+                                  </tr>
+                              @endforeach
+                          </tbody>
+                      </table>
                         <div class="col-lg-6"><br><br>
-                            <form method="post" action="{{ route('add_new_crops') }}">
+                            <form method="post" action="{{ route('add_inspection_certificate') }}">
                                 {{ csrf_field() }}
-                                <div class="input-group mb-3">
-                                    <input type="text" name="crop_name" class="form-control" placeholder="Crop Name" required>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-leaf"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="input-group mb-3">
                                     <select name="growing_type" class="form-control" required>
                                         <option>Select a Growing Type</option>
-                                        <option value=" traditional_farming"> Traditional Farming</option>
-                                        <option value="organic_methods">Organic Methods</option>
-                                        <option value="hydroponics">Hydroponics</option>
-                                      </select>
+                                        <option value=" as_mentioned"> As Mentioned</option>
+                                        <option value="not_maintained">Not Maintained</option>
+                                    </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="harvesting_type" class="form-control" required>
                                         <option>Select a Harvesting Type</option>
-                                        <option value=" by_hand"> By Hand</option>
-                                        <option value=" by_machine"> By Machine</option>
+                                        <option value=" correct"> Correct</option>
+                                        <option value=" incorrect"> Incorrect</option>
                                       </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="sourcing_type" class="form-control" required>
                                         <option>Select a Sourcing Type </option>
-                                        <option value=" locally_sourced"> Locally Sourced</option>
-                                        <option value=" grown_on_farm"> Grown On Farm</option>
+                                        <option value=" correct"> Correct</option>
+                                        <option value=" incorrect"> Incorrect</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="gmo_type" class="form-control" required>
                                         <option>Select a GMO(Genetically Modified) Type </option>
-                                        <option value=" gmo"> GMO</option>
-                                        <option value=" non_gmo"> Non-GMO</option>
-                                        <option value=" not_applicable"> Not Applicable</option>
+                                        <option value=" correct"> Correct</option>
+                                        <option value=" incorrect"> Incorrect</option>
                                       </select>
                                 </div>
                                   
                                 <div class="input-group mb-3">
-                                    <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                    <textarea name="comment" class="form-control" placeholder="Comment"></textarea>
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-comment"></span>
@@ -120,7 +147,7 @@
                                     </select>
                               </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="quantity" class="form-control" placeholder="Quantity" required>
+                                    <input type="text" name="quantity" class="form-control" placeholder="Quantity" >
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-balance-scale"></span>
@@ -128,7 +155,7 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="price" class="form-control" placeholder="Price" required>
+                                    <input type="text" name="price" class="form-control" placeholder="Price">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-dollar-sign"></span>
@@ -137,7 +164,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary btn-block">Add New Crop</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Add Certificate</button>
                                     </div>
                                 </div><br>
                             </form>

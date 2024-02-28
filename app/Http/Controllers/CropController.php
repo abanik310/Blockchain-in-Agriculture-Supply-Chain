@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\models\User;
 use App\models\NewCrops;
+use App\models\InspectionByLC;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -91,16 +92,36 @@ class CropController extends Controller
         ]);
     }
 
-    function inspect_by_LC($id = 5)
+    function inspect_by_LC($id)
     {     
         $inspect_by_LC = DB::table("tbl_crops")
             ->join('tbl_users', 'tbl_crops.user_id', '=', 'tbl_users.id')
             ->where('tbl_crops.id', $id)
             ->get();
 
-        return view('view_inspect_by_LC',[
+        return view('view_inspect_by_LC', [
             'inspect_by_LC' => $inspect_by_LC,
         ]);
+    }
+
+    function add_inspection_certificate(Request $request)
+    {     
+        $inspection_by_LC = new InspectionByLC;
+        echo "<pre>"; print_r($request->id);exit;
+        $inspection_by_LC->growing_type = $request->growing_type;
+        $inspection_by_LC->harvesting_type = $request->harvesting_type;
+        $inspection_by_LC->sourcing_type = $request->sourcing_type;
+        $inspection_by_LC->gmo_type = $request->gmo_type;
+        $inspection_by_LC->comment = $request->comment;
+        $inspection_by_LC->quantity_type = $request->quantity_type;
+        $inspection_by_LC->quantity = $request->quantity;
+        $inspection_by_LC->price = $request->price;
+        $inspection_by_LC->status = 'initially_uploaded';
+        $inspection_by_LC->user_id = $request->session()->get('user_id');
+                        
+        $inspection_by_LC->save();
+
+        return redirect()->back()->with('success', 'New Crop Added Successfully!');
     }
     
 

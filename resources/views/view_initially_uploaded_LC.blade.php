@@ -93,7 +93,7 @@
                                     <td>{{ $info->quantity }}</td>
                                     <td>{{ $info->price }} per {{ $info->quantity_type }}</td>
                                     <td class="text-center">
-                                      <a href="{{ route('inspect_by_LC') }}" class="btn btn-primary">Inspect</a>
+                                      <a href="{{ route('inspect_by_LC', ['id' => $info->id]) }}" class="btn btn-primary">Inspect</a>
                                     </td>
                                     <!-- Add more columns as needed -->
                                 </tr>
