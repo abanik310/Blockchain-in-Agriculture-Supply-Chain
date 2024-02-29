@@ -88,7 +88,7 @@
               <div class="icon">
                 <i class="fas fa-certificate"></i>
               </div>
-              <a href="certified_crops" class="small-box-footer">
+              <a href="certified_crops_LC" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -136,7 +136,7 @@
               <div class="inner">
                 <h3>{{ $finally_uploaded->count() }}</h3>
 
-                <p>Finally Uploaded</p>
+                <p>On Marketplace</p>
               </div>
               <div class="icon">
                 <i class="fas fa-seedling"></i>

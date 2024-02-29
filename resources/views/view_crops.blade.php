@@ -75,6 +75,7 @@
                                   <th>Quantity Type</th>
                                   <th>Quantity</th>
                                   <th>Price</th>
+                                  <th>Status</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -90,7 +91,7 @@
                               <td>{{ $my_crops->quantity_type }}</td>
                               <td>{{ $my_crops->quantity }}</td>
                               <td>{{ $my_crops->price }} per {{ $my_crops->quantity_type }}</td>
-                              <!-- Add more columns as needed -->
+                              <td>{{ $my_crops->status }}</td>
                           </tr>
                           @endforeach
                           </tbody>

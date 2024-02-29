@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InspectionByLC extends Model
 {
     use HasFactory;
+
+    protected $connection = 'pmit_project';
+    protected $table = 'tbl_inspection_by_lc';
 }

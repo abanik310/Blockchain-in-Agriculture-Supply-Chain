@@ -6,16 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inspection</title>
 
-  <!-- Google Font: Source Sans Pro -->
+  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- IonIcons -->
+  
+  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  {{-- <link rel="stylesheet" href="dist/css/style.css)">
-  <link rel="stylesheet" href="dist/css/all.min.css)"> --}}
+  
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
 
 </head>
 
@@ -98,38 +97,46 @@
                               @endforeach
                           </tbody>
                       </table>
-                        <div class="col-lg-6"><br><br>
+                        <div class="col-lg-6" style="margin: auto;"><br><br>
                             <form method="post" action="{{ route('add_inspection_certificate') }}">
                                 {{ csrf_field() }}
-                                
+                                <input type="hidden" name="crop_id" value="crop_id">
+
                                 <div class="input-group mb-3">
                                     <select name="growing_type" class="form-control" required>
-                                        <option>Select a Growing Type</option>
+                                        <option>Growing Type Info</option>
                                         <option value=" as_mentioned"> As Mentioned</option>
                                         <option value="not_maintained">Not Maintained</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="harvesting_type" class="form-control" required>
-                                        <option>Select a Harvesting Type</option>
+                                        <option>Harvesting Type Info</option>
                                         <option value=" correct"> Correct</option>
                                         <option value=" incorrect"> Incorrect</option>
                                       </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="sourcing_type" class="form-control" required>
-                                        <option>Select a Sourcing Type </option>
+                                        <option>Sourcing Type Info</option>
                                         <option value=" correct"> Correct</option>
                                         <option value=" incorrect"> Incorrect</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
                                     <select name="gmo_type" class="form-control" required>
-                                        <option>Select a GMO(Genetically Modified) Type </option>
+                                        <option>GMO(Genetically Modified) Type Info</option>
                                         <option value=" correct"> Correct</option>
                                         <option value=" incorrect"> Incorrect</option>
                                       </select>
                                 </div>
+                                <div class="input-group mb-3">
+                                  <select name="quantity_info" class="form-control" required>
+                                      <option>Quantity Info </option>
+                                      <option value=" correct"> Correct</option>
+                                      <option value=" incorrect"> Incorrect</option>
+                                    </select>
+                              </div>
                                   
                                 <div class="input-group mb-3">
                                     <textarea name="comment" class="form-control" placeholder="Comment"></textarea>
@@ -140,28 +147,13 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                  <select name="quantity_type" class="form-control" required>
-                                      <option>Quantity Type </option>
-                                      <option value=" piece"> Piece</option>
-                                      <option value=" kg"> KG</option>
-                                    </select>
+                                  <textarea name="about_price" class="form-control" placeholder="About Price"></textarea>
+                                  <div class="input-group-append">
+                                      <div class="input-group-text">
+                                          <span class="fas fa-comment"></span>
+                                      </div>
+                                  </div>
                               </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" name="quantity" class="form-control" placeholder="Quantity" >
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-balance-scale"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" name="price" class="form-control" placeholder="Price">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-dollar-sign"></span>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-block">Add Certificate</button>

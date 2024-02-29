@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::get('/inspect_by_LC', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
     Route::get('/inspect_by_LC/{id}', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
     Route::post('/add_inspection_certificate', ['as' => 'add_inspection_certificate', 'uses' => '\App\Http\Controllers\CropController@add_inspection_certificate']);
+    Route::get('/certified_crops_LC', ['as' => 'certified_crops_LC', 'uses' => '\App\Http\Controllers\CropController@certified_crops_LC']);
 
 
     

@@ -126,7 +126,6 @@
                                                     <table class="table table-striped table-bordered table-hover">
                                                       <thead>
                                                           <tr>
-                                                              <th>Crop Name</th>
                                                               <th>Growing Type</th>
                                                               <th>Harvesting Type</th>
                                                               <th>Sourcing Type</th>
@@ -141,7 +140,6 @@
                                                           <!-- Your table body content here -->
                                                           @foreach ($certified_crops as $certified_crops)
                                                       <tr>
-                                                          <td>{{ $certified_crops->crop_name }}</td>
                                                           <td>{{ $certified_crops->growing_type }}</td>
                                                           <td>{{ $certified_crops->harvesting_type }}</td>
                                                           <td>{{ $certified_crops->sourcing_type }}</td>
@@ -155,7 +153,32 @@
                                                       @endforeach
                                                       </tbody>
                                                   </table>
-                                                  
+                                                  <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Growing Type</th>
+                                                            <th>Harvesting Type</th>
+                                                            <th>Sourcing Type</th>
+                                                            <th>GMO Type</th>
+                                                            <th>Comment</th>
+                                                            <th>Quantity Type</th>
+                                                            <th>About Price</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($inspect_by_LC as $inspect_by_LC)
+                                                    <tr>
+                                                        <td>{{ $inspect_by_LC->growing_type }}</td>
+                                                        <td>{{ $inspect_by_LC->harvesting_type }}</td>
+                                                        <td>{{ $inspect_by_LC->sourcing_type }}</td>
+                                                        <td>{{ $inspect_by_LC->gmo_type }}</td>
+                                                        <td>{{ $inspect_by_LC->quantity_info }}</td>
+                                                        <td>{{ $inspect_by_LC->comment }}</td>
+                                                        <td>{{ $inspect_by_LC->about_price }}</td>
+                                                    </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
                                                 </div>
                                                 <!-- END timeline item -->
                                                 <!-- timeline item (Add more timeline items as needed) -->

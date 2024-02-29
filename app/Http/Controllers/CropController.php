@@ -30,7 +30,8 @@ class CropController extends Controller
 
     function certified_crops(Request $request)
     {     
-        $certified_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'certified_crops')->get();
+        $certified_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'certified')->get();
+        
         return view('certified_crops',[
             'certified_crops' => $certified_crops,
         ]);
@@ -85,6 +86,7 @@ class CropController extends Controller
     {     
         $initially_uploaded_LC = DB::table("tbl_users")
             ->join('tbl_crops', 'tbl_crops.user_id', '=', 'tbl_users.id')
+            ->where('tbl_crops.status', '=', 'initially_uploaded')
             ->select('tbl_users.*', 'tbl_crops.*')
             ->get();
         return view('view_initially_uploaded_LC',[
@@ -94,10 +96,14 @@ class CropController extends Controller
 
     function inspect_by_LC($id)
     {     
+        
         $inspect_by_LC = DB::table("tbl_crops")
             ->join('tbl_users', 'tbl_crops.user_id', '=', 'tbl_users.id')
             ->where('tbl_crops.id', $id)
+            ->select('tbl_crops.*', 'tbl_users.*')
             ->get();
+            session(['crop_id' => $id]);
+            session(['inspect_by_LC' => $inspect_by_LC]);
 
         return view('view_inspect_by_LC', [
             'inspect_by_LC' => $inspect_by_LC,
@@ -107,21 +113,48 @@ class CropController extends Controller
     function add_inspection_certificate(Request $request)
     {     
         $inspection_by_LC = new InspectionByLC;
-        echo "<pre>"; print_r($request->id);exit;
+        $crop_id = session('crop_id');
+        // $tbl_crop = DB::table("tbl_crops")
+        //     ->where('tbl_crops.id', $crop_id)
+        //     ->first();
+        $tbl_crop = NewCrops::where('id', $crop_id)->first();
+        
+        $inspect_by_LC = session('inspect_by_LC');
+        $farmer_id = $inspect_by_LC->pluck('user_id')->first();
+
+        $inspection_by_LC->farmer_id = $farmer_id;
+        $inspection_by_LC->crop_id = $crop_id;
         $inspection_by_LC->growing_type = $request->growing_type;
         $inspection_by_LC->harvesting_type = $request->harvesting_type;
         $inspection_by_LC->sourcing_type = $request->sourcing_type;
         $inspection_by_LC->gmo_type = $request->gmo_type;
+        $inspection_by_LC->quantity_info = $request->quantity_info;
         $inspection_by_LC->comment = $request->comment;
-        $inspection_by_LC->quantity_type = $request->quantity_type;
-        $inspection_by_LC->quantity = $request->quantity;
-        $inspection_by_LC->price = $request->price;
-        $inspection_by_LC->status = 'initially_uploaded';
-        $inspection_by_LC->user_id = $request->session()->get('user_id');
-                        
+        $inspection_by_LC->about_price = $request->about_price;
         $inspection_by_LC->save();
 
-        return redirect()->back()->with('success', 'New Crop Added Successfully!');
+        $tbl_crop->status = 'certified';
+        $tbl_crop->save();                  
+
+        return redirect()->back()->with('success', 'Certificate Added Successfully!');
+    }
+
+    
+    function certified_crops_LC(Request $request)
+    {     
+        $certified_crops = NewCrops::where('status', 'certified')->get();
+        
+        $inspect_by_LC = collect(); // Initialize an empty collection
+
+        foreach ($certified_crops as $crop) {
+            $inspection = InspectionByLC::where('crop_id', $crop->id)->first();
+            $inspect_by_LC->push($inspection);
+        }
+        
+        return view('certified_crops_LC', [
+            'certified_crops' => $certified_crops,
+            'inspect_by_LC' => $inspect_by_LC,
+        ]);
     }
     
 
