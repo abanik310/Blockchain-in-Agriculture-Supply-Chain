@@ -19,7 +19,7 @@
               <b>{{ session('usertype') }} </b>
           </p>
           <p class="text " style="text-align: center;text-transform: uppercase;color:lightyellow">
-            <b>Balance : {{ session('balance') }} ETH </b>
+            <b>Balance : {{ session('balance') }} $ </b>
         </p>
         </div>
       </div>
@@ -40,6 +40,15 @@
               <p>Dashboard</p>
             </a>
           </li>
+          @if(session('usertype') == "consumer")
+            <li class="nav-item">
+              <a href="/recharge_balance_view" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-money-bill-wave"></i> <!-- Money icon -->
+                <p>Recharge Balance</p>
+              </a>
+            </li>
+          @endif
+
           @if(session('usertype') == "logistic_company")
           <li class="nav-item">
             <a href="/view_investigation" class="nav-link" style="color:white">
@@ -62,8 +71,6 @@
               <p>Crop Timeline</p>
             </a>
           </li>
-          
-          
           
             @endif
             </ul>

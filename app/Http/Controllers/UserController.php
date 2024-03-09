@@ -112,4 +112,25 @@ class UserController extends Controller
         return view('add_product');
     }
 
+    function recharge_balance_view(Request $request)
+    {     
+        return view('view_recharge_balance');
+    }
+
+    function recharge_amount(Request $request, $amount)
+    {     
+       
+        $user = User::where('id', session('user_id'))->first();
+        //echo $user;exit;
+        //print_r(session()->all());exit;
+        $currentBalance = $user->balance; 
+        $newBalance = $currentBalance + $amount;
+        $user->balance = $newBalance;
+        $user->save();
+        session(['balance' => $newBalance]); // Update the balance in the session
+
+        return redirect()->back()->with('success', 'Balance recharged successfully!');
+    }
+    
+
 }
