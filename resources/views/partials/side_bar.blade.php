@@ -57,7 +57,7 @@
             </a>
         </li>
           @endif
-          @if(session('usertype') != "logistic_company")
+          @if(session('usertype') == "farmer")
           
           <li class="nav-item">
             <a href="/crops" class="nav-link" style="color:white">
@@ -69,6 +69,18 @@
             <a href="/crop_timeline" class="nav-link" style="color:white">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>Crop Timeline</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/private_key_generate" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-key"></i>
+                <p>Private Key Generate</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/tokenization" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-shield-alt"></i>
+                <p>Tokenization</p>
             </a>
           </li>
           

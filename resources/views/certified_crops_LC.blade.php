@@ -9,7 +9,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -119,10 +119,13 @@
                                                 <div class="time-label">
                                                     <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span>
                                                 </div>
-                                                <!-- /.timeline-label -->
-                                                <!-- timeline item -->
                                                 <div>
-                                                    <i class="fas fa-envelope bg-blue"></i>
+                                                    {{-- <i class="fas fa-envelope bg-blue"></i> --}}
+                                                    <div>
+                                                    <div class="timeline-item">
+                                                      <h3 class="timeline-header no-border"> Initially Uploaded</h3>
+                                                  </div>
+                                                    </div>
                                                     <table class="table table-striped table-bordered table-hover">
                                                       <thead>
                                                           <tr>
@@ -153,6 +156,21 @@
                                                       @endforeach
                                                       </tbody>
                                                   </table>
+                                                  @foreach ($inspect_by_LC as $index => $crop_inspection)
+                                                  
+                                                  {{-- <div class="time-label bg-red">
+                                                    <span >{{ $crop_inspection->created_at->format('d F, Y') }}</span>
+                                                  </div> --}}
+                                                  <div class="time-label">
+                                                    <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span>
+                                                </div>
+                                                  <div>
+                                                    {{-- <i class="fas fa-user bg-green"></i> --}}
+                                                    <div class="timeline-item">
+                                                        {{-- <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span> --}}
+                                                        <h3 class="timeline-header no-border"> From Logistic Company</h3>
+                                                    </div>
+                                                  </div>
                                                   <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                         <tr>
@@ -179,6 +197,7 @@
                                                     @endforeach
                                                     </tbody>
                                                 </table>
+                                                @endforeach
                                                 </div>
                                                 <!-- END timeline item -->
                                                 <!-- timeline item (Add more timeline items as needed) -->

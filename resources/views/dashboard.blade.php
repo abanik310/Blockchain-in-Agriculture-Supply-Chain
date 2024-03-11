@@ -13,7 +13,7 @@
   <!-- IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
 
 <script>
@@ -88,7 +88,7 @@
               <div class="icon">
                 <i class="fas fa-certificate"></i>
               </div>
-              <a href="certified_crops_LC" class="small-box-footer">
+              <a href="certified_crops" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\models\User;
 use App\models\NewCrops;
 use App\models\InspectionByLC;
+use App\models\PrivateKeyGenerate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -71,6 +72,49 @@ class CropController extends Controller
             'my_crops' => $my_crops,
         ]);
     }
+
+    function generate_key(Request $request)
+    {     
+        
+        $crop_for_private_key = new PrivateKeyGenerate();
+        $crop_for_private_key->crop_id = $request->crop_id;
+        $crop_for_private_key->save();
+
+        $crop = NewCrops::where('id', $request->crop_id)->first();
+        $crop->status = 'private_key_generated';
+        $crop->save();
+
+        return redirect()->back()->with('success', 'Private Key Generate Successfully!');
+    }
+
+    function private_key_generate(Request $request)
+    {     
+        $certified_crops = NewCrops::where('status', 'certified')->where('user_id', $request->session()->get('user_id'))->get();
+
+        $crop_id = $certified_crops->pluck('id'); // Extract the 'id' values into an array
+
+        $crop_for_private_key = PrivateKeyGenerate::whereIn('crop_id', $crop_id)->get();
+        
+        return view('view_private_key_generator',[
+            'certified_crops' => $certified_crops,
+            'crop_for_private_key' => $crop_for_private_key,
+        ]);
+    }
+
+    function tokenization(Request $request)
+    {     
+        $certified_crops = NewCrops::where('status', 'private_key_generated')->where('user_id', $request->session()->get('user_id'))->get();
+
+        $crop_id = $certified_crops->pluck('id'); // Extract the 'id' values into an array
+
+        $crop_for_private_key = PrivateKeyGenerate::whereIn('crop_id', $crop_id)->get();
+        
+        return view('view_tokenization',[
+            'certified_crops' => $certified_crops,
+            'crop_for_private_key' => $crop_for_private_key,
+        ]);
+    }
+
 
     function view_investigation(Request $request)
     {     
