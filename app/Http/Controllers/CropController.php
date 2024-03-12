@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 use App\models\User;
 use App\models\NewCrops;
 use App\models\InspectionByLC;
+use App\models\CertifiedCrop;
 use App\models\PrivateKeyGenerate;
+use App\models\Storage;
+use App\models\Tokenization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +26,7 @@ class CropController extends Controller
 
     function initially_uploaded_crops(Request $request)
     {     
-        $initially_uploaded_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'initially_uploaded_crops')->get();
+        $initially_uploaded_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status', 'initially_uploaded')->get();
         return view('initially_uploaded_crops',[
             'initially_uploaded_crops' => $initially_uploaded_crops,
         ]);
@@ -82,6 +85,7 @@ class CropController extends Controller
 
         $crop = NewCrops::where('id', $request->crop_id)->first();
         $crop->status = 'private_key_generated';
+        $crop->private_key = $crop_for_private_key->id;
         $crop->save();
 
         return redirect()->back()->with('success', 'Private Key Generate Successfully!');
@@ -178,7 +182,11 @@ class CropController extends Controller
         $inspection_by_LC->save();
 
         $tbl_crop->status = 'certified';
-        $tbl_crop->save();                  
+        $tbl_crop->save();  
+
+        $certified_crop = New CertifiedCrop();
+        $certified_crop->crop_id = $crop_id;
+        $certified_crop->save();                
 
         return redirect()->back()->with('success', 'Certificate Added Successfully!');
     }
@@ -199,6 +207,49 @@ class CropController extends Controller
             'certified_crops' => $certified_crops,
             'inspect_by_LC' => $inspect_by_LC,
         ]);
+    }
+
+    function view_store_crop(Request $request)
+    {     
+        $key_crops = NewCrops::where('status', 'private_key_generated')->where('user_id', $request->session()->get('user_id'))->get();
+
+        $crop_id = $key_crops->pluck('id'); // Extract the 'id' values into an array
+        $crop_for_private_key = PrivateKeyGenerate::whereIn('crop_id', $crop_id)->get();
+        
+        return view('view_store_crop',[
+            'key_crops' => $key_crops,
+            'crop_id' => $crop_id,
+        ]);
+    }
+
+        function crop_store(Request $request)
+    {  
+        $crop_id = $request->input('crop_id');
+        $storage_area = $request->input('storage_area');
+        
+        $crop = NewCrops::where('status', 'private_key_generated')
+                            ->where('id', $crop_id)
+                            ->first();
+        
+        $tokens = new Tokenization();
+        $tokens->owner_id = $request->session()->get('user_id');
+        $tokens->crop_id = $request->input('crop_id'); // Use $crop->id
+        $tokens->private_key = $crop->private_key; // Use $key_crop->private_key
+        $tokens->token = $tokens->owner_id . $tokens->crop_id . strtoupper(substr($storage_area, -2)) . $crop->private_key . strtoupper(substr($storage_area, 0, 3));
+        $tokens->save();
+
+        $store_crop = new Storage();
+        $store_crop->storage_area = $storage_area;
+        $store_crop->private_key = $crop->private_key;
+        $store_crop->token = $tokens->token;
+        $store_crop->save();
+
+        $crop->status = 'stored_in_storage';
+        $crop->save();
+        //echo '<pre>';print_r($store_crop);exit;
+        
+        
+        return redirect()->back()->with('success', 'Store Crop Successfully!');
     }
     
 

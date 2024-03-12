@@ -77,10 +77,16 @@
                 <p>Private Key Generate</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/tokenization" class="nav-link" style="color:white">
                 <i class="nav-icon fas fa-shield-alt"></i>
                 <p>Tokenization</p>
+            </a>
+          </li> --}}
+          <li class="nav-item">
+            <a href="/store_crop" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-store"></i>
+                <p>Store Crop</p>
             </a>
           </li>
           

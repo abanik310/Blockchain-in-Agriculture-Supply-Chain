@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/generate_key', ['as' => 'generate_key', 'uses' => '\App\Http\Controllers\CropController@generate_key']);
 
     Route::get('/tokenization', ['as' => 'tokenization', 'uses' => '\App\Http\Controllers\CropController@tokenization']);
+    Route::get('/store_crop', ['as' => 'store_crop', 'uses' => '\App\Http\Controllers\CropController@view_store_crop']);
+    Route::get('/crop_store', ['as' => 'crop_store', 'uses' => '\App\Http\Controllers\CropController@crop_store']);
 
     Route::get('/crop_timeline', ['as' => 'crop_timeline', 'uses' => '\App\Http\Controllers\CropController@crop_timeline']);
     Route::get('/recharge_balance_view', ['as' => 'recharge_balance_view', 'uses' => '\App\Http\Controllers\UserController@recharge_balance_view']);

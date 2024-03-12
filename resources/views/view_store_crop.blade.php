@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Private Key Generate</title>
+  <title>Store Crop</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,6 +25,13 @@
   }
 </script>
 
+<script>
+  function storeCrop(cropId, storageArea) {
+      // Redirect to the route with the selected storage area and crop ID
+      location.href = '/crop_store?crop_id=' + cropId + '&storage_area=' + storageArea;
+  }
+</script>
+
 <body class="hold-transition sidebar-mini">
   
 <div class="wrapper">
@@ -44,24 +50,24 @@
         @include('partials.success')
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Private Key Generate</h1>
+            <h1 class="m-0">Store Crop</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Private Key Generate</li>
+              <li class="breadcrumb-item active">Store Crop</li>
             </ol>
           </div><!-- /.col -->
         </div>
-        @if (count($certified_crops) == 0)
+        @if (count($key_crops) == 0)
         <div class="card card-primary card-outline">
             <div class="card-body" style="margin:auto">
-                <h4>No Crop Remain For Key Generation</h4>
+                <h4>No Crop Remain For Store</h4>
             </div>
         </div>
         @endif
         
-        @foreach ($certified_crops as $index => $crop)
+        @foreach ($key_crops as $index => $crop)
     <div class="col-lg-12">
         <div class="col-12" id="accordion">
             <div class="card card-primary card-outline">
@@ -88,30 +94,62 @@
                                             <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Private Key</th>
+                                            <th>Storage Area</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- Your table body content here -->
-                                        @foreach ($certified_crops as $certified_crop)
+                                        @foreach ($key_crops as $key_crop)
                                         <tr>
-                                            <td>{{ $certified_crop->description }}</td>
-                                            <td>{{ $certified_crop->quantity_type }}</td>
-                                            <td>{{ $certified_crop->quantity }}</td>
-                                            <td>{{ $certified_crop->price }} per {{ $certified_crop->quantity_type }}</td>
+                                            <td>{{ $key_crop->description }}</td>
+                                            <td>{{ $key_crop->quantity_type }}</td>
+                                            <td>{{ $key_crop->quantity }}</td>
+                                            <td>{{ $key_crop->price }} per {{ $key_crop->quantity_type }}</td>
+                                            <td>{{ $key_crop->private_key }}</td>
                                             <td>
-                                                @if(!is_null($crop_for_private_key) && count($crop_for_private_key) > 0)
-                                                    @foreach ($crop_for_private_key as $crop)
-                                                        {{ $crop->id }}
-                                                    @endforeach
-                                                @else
-                                                    <!-- Handle the case where $crop_for_private_key is null or empty -->
-                                                    <button class="btn btn-primary" onclick="location.href='/generate_key?crop_id={{ $crop->id }}'">Generate Key</button>
-                                                @endif
+                                                <select id="storageAreaSelect{{ $key_crop->id }}" name="storage_area" class="form-control"required>
+                                                    <option>Select Storage Area</option>
+                                                    <option value="dhaka">Dhaka</option>
+                                                    <option value="rajshahi">Rajshahi</option>
+                                                    <option value="chottogram">Chottogram</option>
+                                                    <option value="khulna">Khulna</option>
+                                                    <option value="rangpur">Rangpur</option>
+                                                    <option value="barishal">Barishal</option>
+                                                    <option value="mymensingh">Mymensingh</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary" onclick="storeCrop('{{ $key_crop->id }}', document.getElementById('storageAreaSelect{{ $key_crop->id }}').value)">Store Crop</button>
                                             </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{-- <div class="col-lg-6" style="margin: auto;"><br><br>
+                                  <form method="post" action="{{ route('crop_store') }}">
+                                    {{ csrf_field() }}
+                                <input type="hidden" name="crop_id" value="{{ $crop_id }}">
+
+                                <div class="input-group mb-3">
+                                    <select name="storage_area" class="form-control" required>
+                                        <option>Storage Area</option>
+                                        <option value=" dhaka"> Dhaka</option>
+                                        <option value="rajshahi">Rajshahi</option>
+                                        <option value=" chottogram"> Chottogram</option>
+                                        <option value="khulna">Khulna</option>
+                                        <option value="rangpur">Rangpur</option>
+                                        <option value=" barishal"> Barishal</option>
+                                        <option value="mymensingh"> Mymensingh</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-block">Add in Storage</button>
+                                    </div>
+                                </div><br>
+                            </form>
+                        </div> --}}
                                 </div>
                         </div>
                     </div>
@@ -146,11 +184,7 @@
 <!-- AdminLTE -->
 <script src="dist/js/adminlte.js"></script>
 
-<!-- OPTIONAL SCRIPTS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="dist/js/demo.js"></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard3.js"></script>
 </body>
 </html>
