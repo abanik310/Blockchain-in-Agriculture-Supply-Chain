@@ -114,7 +114,7 @@
                                     <div class="card-body">
                                         <div class="col-md-12">
                                             <!-- The time line -->
-                                            <div class="timeline">
+                                            <div class="timeline-item">
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
                                                     <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span>
@@ -162,7 +162,7 @@
                                                     <span >{{ $crop_inspection->created_at->format('d F, Y') }}</span>
                                                   </div> --}}
                                                   <div class="time-label">
-                                                    <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span>
+                                                    <span class="bg-red">{{ $crop_inspection->created_at->format('d F, Y') }}</span>
                                                 </div>
                                                   <div>
                                                     {{-- <i class="fas fa-user bg-green"></i> --}}
@@ -199,17 +199,6 @@
                                                 </table>
                                                 @endforeach
                                                 </div>
-                                                <!-- END timeline item -->
-                                                <!-- timeline item (Add more timeline items as needed) -->
-                                                <div>
-                                                    <i class="fas fa-user bg-green"></i>
-                                                    <div class="timeline-item">
-                                                        <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                                                        <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-                                                    </div>
-                                                </div>
-                                                <!-- END timeline item -->
-                                                <!-- Add more timeline items as needed -->
                                             </div>
                                             <!-- END timeline -->
                                         </div>

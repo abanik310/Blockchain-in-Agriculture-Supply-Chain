@@ -86,9 +86,15 @@
           <li class="nav-item">
             <a href="/store_crop" class="nav-link" style="color:white">
                 <i class="nav-icon fas fa-store"></i>
-                <p>Store Crop</p>
+                <p>Crop Storage</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/crops_on_marketplace" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-shopping-basket"></i> <!-- Updated icon class -->
+                <p>Crop on Marketplace</p>
+            </a>
+        </li>
           
             @endif
             </ul>

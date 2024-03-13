@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tokenization', ['as' => 'tokenization', 'uses' => '\App\Http\Controllers\CropController@tokenization']);
     Route::get('/store_crop', ['as' => 'store_crop', 'uses' => '\App\Http\Controllers\CropController@view_store_crop']);
     Route::get('/crop_store', ['as' => 'crop_store', 'uses' => '\App\Http\Controllers\CropController@crop_store']);
+    
+    Route::get('/add_to_marketplace', ['as' => 'add_to_marketplace', 'uses' => '\App\Http\Controllers\CropController@add_to_marketplace']);
+    Route::get('/crops_on_marketplace', ['as' => 'crops_on_marketplace', 'uses' => '\App\Http\Controllers\CropController@crops_on_marketplace']);
 
     Route::get('/crop_timeline', ['as' => 'crop_timeline', 'uses' => '\App\Http\Controllers\CropController@crop_timeline']);
     Route::get('/recharge_balance_view', ['as' => 'recharge_balance_view', 'uses' => '\App\Http\Controllers\UserController@recharge_balance_view']);

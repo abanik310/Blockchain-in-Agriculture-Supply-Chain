@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\models\User;
-use App\models\NewCrops;
+use App\models\Crops;
+use App\models\CertifiedCrop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -72,14 +73,14 @@ class UserController extends Controller
     
     function dashboard(Request $request)
     {     
-        $my_crops = NewCrops::where('user_id', $request->session()->get('user_id'))->get();
-        $initially_uploaded = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status','initially_uploaded')->get();
-        $certified = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status','certified')->get();
-        $finally_uploaded = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status','finally_uploaded')->get();
-        $sold = NewCrops::where('user_id', $request->session()->get('user_id'))->where('status','sold')->get();
+        $my_crops = Crops::where('farmer_id', $request->session()->get('user_id'))->get();
+        $initially_uploaded = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','initially_uploaded')->get();
+        $certified = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','certified')->get();
+        $finally_uploaded = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','finally_uploaded')->get();
+        $sold = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','sold')->get();
 
-        $initially_uploaded_LC = NewCrops::where('status','initially_uploaded')->get();
-        $certified_LC = NewCrops::where('status','certified')->get();
+        $initially_uploaded_LC = Crops::where('status','initially_uploaded')->get();
+        $certified_LC = CertifiedCrop::all();
 
         return view('dashboard',[
             'my_crops' => $my_crops,

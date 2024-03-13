@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Store Crop</title>
+  <title>Crop Storage</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -50,12 +50,12 @@
         @include('partials.success')
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Store Crop</h1>
+            <h1 class="m-0">Crop Storage</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Store Crop</li>
+              <li class="breadcrumb-item active">Crop Storage</li>
             </ol>
           </div><!-- /.col -->
         </div>
@@ -126,39 +126,63 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{-- <div class="col-lg-6" style="margin: auto;"><br><br>
-                                  <form method="post" action="{{ route('crop_store') }}">
-                                    {{ csrf_field() }}
-                                <input type="hidden" name="crop_id" value="{{ $crop_id }}">
-
-                                <div class="input-group mb-3">
-                                    <select name="storage_area" class="form-control" required>
-                                        <option>Storage Area</option>
-                                        <option value=" dhaka"> Dhaka</option>
-                                        <option value="rajshahi">Rajshahi</option>
-                                        <option value=" chottogram"> Chottogram</option>
-                                        <option value="khulna">Khulna</option>
-                                        <option value="rangpur">Rangpur</option>
-                                        <option value=" barishal"> Barishal</option>
-                                        <option value="mymensingh"> Mymensingh</option>
-                                    </select>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary btn-block">Add in Storage</button>
-                                    </div>
-                                </div><br>
-                            </form>
-                        </div> --}}
                                 </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
 @endforeach
-        
+<div class="card">
+<div class="col-md-12">
+      
+        <div class="card-body">
+          <h3>Crop on Storage</h3>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Crop Name</th>
+                    <th>Quantity Type</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Private Key</th>
+                    <th>Storage Area</th>
+                    <th>Token</th>
+                    <th>Store Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your table body content here -->
+                @foreach ($store_crops as $store_crop)
+                <tr>
+                    <td>{{ $store_crop->crop_name }}</td>
+                    <td>{{ $store_crop->quantity_type }}</td>
+                    <td>{{ $store_crop->quantity }}</td>
+                    <td>{{ $store_crop->price }} per {{ $store_crop->quantity_type }}</td>
+                    <td>{{ $store_crop->private_key }}</td>
+                    <td>{{ $store_crop->storage_area }}</td>
+                    <td>{{ $store_crop->token }}</td>
+                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $store_crop->created_at)->format('d F, Y') }}
+                    </td>
+                    @if($store_crop->status == 'stored_in_storage')
+                    <td>
+                      <button class="btn btn-primary" onclick="location.href='/add_to_marketplace?crop_id={{ $store_crop->crop_id }}'" style="height: 40px; white-space: nowrap;">Add to Marketplace</button>
+                  </td>
+
+                    @else
+                      <td>Already in Marketplace</td>
+                    @endif
+                    
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        </div>
+</div>
+</div>
       </div><!-- /.container-fluid -->
     </div>
   </div>
