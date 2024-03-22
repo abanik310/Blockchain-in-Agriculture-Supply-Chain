@@ -9,6 +9,7 @@ use App\models\PrivateKeyGenerate;
 use App\models\Storage;
 use App\models\Marketplace;
 use App\models\Tokenization;
+use App\models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -35,8 +36,13 @@ class CropController extends Controller
 
     function certified_crops(Request $request)
     {     
-        $certified_crops = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status', 'certified')->get();
+        //$certified_crops = CertifiedCrop::where('farmer_id', $request->session()->get('user_id'))->where('status', 'certified')->get();
         
+        $certified_crops = DB::table("tbl_certified")
+            ->join('tbl_crops', 'tbl_crops.farmer_id', '=', 'tbl_certified.farmer_id')
+            ->select('tbl_certified.*', 'tbl_crops.*')
+            ->get();
+
         return view('certified_crops',[
             'certified_crops' => $certified_crops,
         ]);
@@ -195,18 +201,22 @@ class CropController extends Controller
     
     function certified_crops_LC(Request $request)
     {     
-        $certified_crops = Crops::where('status', 'certified')->get();
-        
-        $inspect_by_LC = collect(); // Initialize an empty collection
+        //$certified_crops = CertifiedCrop::all();
+        $certified_crops = DB::table("tbl_certified")
+            ->join('tbl_crops', 'tbl_crops.farmer_id', '=', 'tbl_certified.farmer_id')
+            ->select('tbl_certified.*', 'tbl_crops.*')
+            ->get();
+            //print_r($certified_crops);exit;
+        // $inspect_by_LC = collect(); // Initialize an empty collection
 
-        foreach ($certified_crops as $crop) {
-            $inspection = InspectionByLC::where('crop_id', $crop->id)->first();
-            $inspect_by_LC->push($inspection);
-        }
-        
-        return view('certified_crops_LC', [
+        // foreach ($certified_crops as $crop) {
+        //     $inspection = InspectionByLC::where('crop_id', $crop->id)->first();
+        //     $inspect_by_LC->push($inspection);
+        // }
+        //print_r($inspect_by_LC);exit;
+        return view('certified_crops', [
             'certified_crops' => $certified_crops,
-            'inspect_by_LC' => $inspect_by_LC,
+            // 'inspect_by_LC' => $inspect_by_LC,
         ]);
     }
 
@@ -293,6 +303,84 @@ class CropController extends Controller
             'crops_on_marketplace' => $crops_on_marketplace,
         ]);
     }
+
+    function marketplace(Request $request)
+    {     
+        $marketplace_items = DB::table("tbl_marketplace")
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_marketplace.crop_id')
+            ->where('tbl_crops.status', '=', 'on_marketplace')
+            ->select('tbl_crops.*','tbl_marketplace.*')
+            ->get();
+        return view('marketplace',[
+            'marketplace_items' => $marketplace_items,
+        ]);
+    }
+
+    function marketplace_details(Request $request, $id)
+    {     
+        $marketplace_details = DB::table("tbl_marketplace")
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_marketplace.crop_id')
+            ->where('tbl_marketplace.id', '=', $id)
+            ->select('tbl_crops.*','tbl_marketplace.*')
+            ->get();
+        //print_r($marketplace_details);exit;
+        return view('marketplace_details',[
+            'marketplace_details' => $marketplace_details,
+        ]);
+    }
+
+    function add_cart(Request $request)
+    {     
+        //echo $request->id;exit;
+
+        $cart_items = DB::table("tbl_marketplace")
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_marketplace.crop_id')
+            ->where('tbl_marketplace.id', '=', $request->id)
+            ->select('tbl_crops.quantity','tbl_crops.quantity_type','tbl_crops.price','tbl_marketplace.crop_id','tbl_marketplace.farmer_id',)
+            ->get();
+        
+        foreach ($cart_items as $cart_item) {
+            $add_to_cart = new Cart();
+            $add_to_cart->crop_id = $cart_item->crop_id;
+            $add_to_cart->farmer_id = $cart_item->farmer_id;
+            $add_to_cart->quantity = $cart_item->quantity;
+            $add_to_cart->quantity_type = $cart_item->quantity_type;
+            $add_to_cart->price = $cart_item->price;
+            $add_to_cart->save(); 
+        }
+
+        return redirect()->back()->with('success', 'Crop Added to Cart Successfully!');
+    }
+    function cart_list(Request $request)
+    {     
+        $cart_list = DB::table("tbl_cart")
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_cart.crop_id')
+            ->join('tbl_users', 'tbl_crops.farmer_id', '=', 'tbl_users.id')
+            //->where('tbl_marketplace.id', '=', $id)
+            ->select('tbl_crops.crop_name','tbl_users.fullname as farmer_name','tbl_cart.quantity','tbl_cart.id','tbl_cart.quantity_type','tbl_cart.price')
+            ->get();
+        //print_r($cart_list);exit;
+        return view('view_cart_list',[
+            'cart_list' => $cart_list,
+        ]);
+    }
+
+    function view_make_payment(Request $request)
+    {     
+        //echo $request->id;exit;
+        $cart_list = DB::table("tbl_cart")
+
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_cart.crop_id')
+            ->join('tbl_users', 'tbl_crops.farmer_id', '=', 'tbl_users.id')
+            ->where('tbl_cart.id', '=', $request->id)
+            ->select('tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name','tbl_cart.quantity','tbl_cart.id','tbl_cart.quantity_type','tbl_cart.price')
+            ->get();
+        //print_r($cart_list);exit;
+        return view('view_make_payment',[
+            'cart_list' => $cart_list,
+        ]);
+    }
+    
     
 
 }

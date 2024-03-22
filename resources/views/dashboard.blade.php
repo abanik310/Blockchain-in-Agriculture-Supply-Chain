@@ -58,7 +58,41 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          
+          @if(session('usertype') == 'consumer')
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ $initially_uploaded_LC->count() }}</h3>
+
+                <p>Cart</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+              <a href="cart_list" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-orange">
+              <div class="inner">
+                <h3>{{ $certified_LC->count() }}</h3>
+
+                <p>Bought</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-bag"></i>
+              </div>
+              <a href="certified_crops" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          @endif
           @if(session('usertype') == 'logistic_company')
           <div class="col-lg-3 col-6">
             <!-- small card -->
@@ -134,7 +168,7 @@
             <!-- small card -->
             <div class="small-box bg-secondary">
               <div class="inner">
-                <h3>{{ $finally_uploaded->count() }}</h3>
+                <h3>{{ $crop_on_marketplace->count() }}</h3>
 
                 <p>On Marketplace</p>
               </div>

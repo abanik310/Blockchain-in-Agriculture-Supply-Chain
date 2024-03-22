@@ -25,6 +25,8 @@ Route::get('/logout', ['as' => 'logout', 'uses' => '\App\Http\Controllers\UserCo
 Route::get('/register', ['as' => 'register', 'uses' => '\App\Http\Controllers\UserController@register_page']);
 Route::post('/register_user', ['as' => 'register_user', 'uses' => '\App\Http\Controllers\UserController@register_user']);
 
+Route::get('/marketplace', ['as' => 'marketplace', 'uses' => '\App\Http\Controllers\CropController@marketplace']);
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', ['as' => 'dashboard', 'uses' => '\App\Http\Controllers\UserController@dashboard']);
     Route::get('/user_profile', ['as' => 'user_profile', 'uses' => '\App\Http\Controllers\UserController@user_profile']);
@@ -56,7 +58,18 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::get('/inspect_by_LC', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
     Route::get('/inspect_by_LC/{id}', ['as' => 'inspect_by_LC', 'uses' => '\App\Http\Controllers\CropController@inspect_by_LC']);
     Route::post('/add_inspection_certificate', ['as' => 'add_inspection_certificate', 'uses' => '\App\Http\Controllers\CropController@add_inspection_certificate']);
-    Route::get('/certified_crops', ['as' => 'certified_crops', 'uses' => '\App\Http\Controllers\CropController@certified_crops_LC']);
+    Route::get('/certified_crops', ['as' => 'certified_crops', 'uses' => '\App\Http\Controllers\CropController@certified_crops']);
+
+    //Cart
+    Route::post('/add_cart', ['as' => 'add_cart', 'uses' => '\App\Http\Controllers\CropController@add_cart']);
+    Route::get('/cart_list', ['as' => 'cart_list', 'uses' => '\App\Http\Controllers\CropController@cart_list']);
+    Route::get('/add_cart', ['as' => 'add_cart', 'uses' => '\App\Http\Controllers\CropController@add_cart']);
+
+    Route::get('/make_payment', ['as' => 'make_payment', 'uses' => '\App\Http\Controllers\CropController@view_make_payment']);
+
+
+    Route::post('/add_cart', ['as' => 'add_cart', 'uses' => '\App\Http\Controllers\CropController@add_cart']);
+    Route::get('/marketplace_details/{id}', ['as' => 'marketplace_details', 'uses' => '\App\Http\Controllers\CropController@marketplace_details']);
 
 
     

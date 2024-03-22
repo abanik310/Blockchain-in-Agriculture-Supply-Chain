@@ -117,7 +117,7 @@
                                             <div class="timeline-item">
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
-                                                    <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span>
+                                                    {{-- <span class="bg-red">{{ $crop->created_at->format('d F, Y') }}</span> --}}
                                                 </div>
                                                 <div>
                                                     {{-- <i class="fas fa-envelope bg-blue"></i> --}}
@@ -141,7 +141,7 @@
                                                       </thead>
                                                       <tbody>
                                                           <!-- Your table body content here -->
-                                                          @foreach ($certified_crops as $certified_crops)
+                                                          {{-- @foreach ($certified_crops as $certified_crops)
                                                       <tr>
                                                           <td>{{ $certified_crops->growing_type }}</td>
                                                           <td>{{ $certified_crops->harvesting_type }}</td>
@@ -153,7 +153,7 @@
                                                           <td>{{ $certified_crops->price }} per {{ $certified_crops->quantity_type }}</td>
                                                           <!-- Add more columns as needed -->
                                                       </tr>
-                                                      @endforeach
+                                                      @endforeach --}}
                                                       </tbody>
                                                   </table>
                                                   @foreach ($inspect_by_LC as $index => $crop_inspection)
@@ -162,7 +162,7 @@
                                                     <span >{{ $crop_inspection->created_at->format('d F, Y') }}</span>
                                                   </div> --}}
                                                   <div class="time-label">
-                                                    <span class="bg-red">{{ $crop_inspection->created_at->format('d F, Y') }}</span>
+                                                    {{-- <span class="bg-red">{{ $crop_inspection->created_at->format('d F, Y') }}</span> --}}
                                                 </div>
                                                   <div>
                                                     {{-- <i class="fas fa-user bg-green"></i> --}}
@@ -184,7 +184,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($inspect_by_LC as $inspect_by_LC)
+                                                        {{-- @foreach ($inspect_by_LC as $inspect_by_LC)
                                                     <tr>
                                                         <td>{{ $inspect_by_LC->growing_type }}</td>
                                                         <td>{{ $inspect_by_LC->harvesting_type }}</td>
@@ -194,7 +194,7 @@
                                                         <td>{{ $inspect_by_LC->comment }}</td>
                                                         <td>{{ $inspect_by_LC->about_price }}</td>
                                                     </tr>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     </tbody>
                                                 </table>
                                                 @endforeach

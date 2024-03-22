@@ -10,12 +10,19 @@
       {{-- <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
         <a style="background: whitesmoke; color:black" href="/" class="nav-link">Home</a>
       </li> --}}
-      <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
-        <a style="background: whitesmoke; color:black" href="login" class="nav-link">Login</a>
+      
+    @if(session()->has('user_id'))
+        @else
+        <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
+          <a target="_blank" style="background: whitesmoke; color:black" href="marketplace" class="nav-link">Marketplace</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block ml-auto">
-        <a style="background: whitesmoke; color:black" href="register" class="nav-link">Registration</a>
-      </li>
+        <li class="nav-item d-none d-sm-inline-block ml-auto" style="margin-right: 10px;">
+            <a style="background: whitesmoke; color:black" href="login" class="nav-link">Login</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block ml-auto">
+            <a style="background: whitesmoke; color:black" href="register" class="nav-link">Registration</a>
+        </li>
+    @endif
     </ul>
 
     <!-- Right navbar links -->

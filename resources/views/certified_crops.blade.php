@@ -62,7 +62,7 @@
             </div> --}}
               <!-- /.card-header -->
               <div class="card-body">
-                  {{-- <div class="card-body table-responsive p-0">
+                  <div class="card-body table-responsive p-0">
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered table-hover">
                           <thead>
@@ -97,8 +97,8 @@
                           </tbody>
                       </table>
                   </div> 
-                  </div>--}}
-                  @foreach ($certified_crops as $index => $crop)
+                  </div>
+                  {{-- @foreach ($certified_crops as $index => $crop)
 
                     <div class="col-lg-12">
                         <div class="col-12" id="accordion">
@@ -176,7 +176,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
               </div>
               <!-- /.card-body -->
           </div>

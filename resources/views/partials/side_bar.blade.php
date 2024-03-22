@@ -47,6 +47,12 @@
                 <p>Recharge Balance</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a target="_blank" href="/marketplace" class="nav-link" style="color:white">
+                <i class="nav-icon fas fa-store"></i> <!-- Money icon -->
+                <p>Marketplace</p>
+              </a>
+            </li>
           @endif
 
           @if(session('usertype') == "logistic_company")

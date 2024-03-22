@@ -75,8 +75,10 @@ class UserController extends Controller
     {     
         $my_crops = Crops::where('farmer_id', $request->session()->get('user_id'))->get();
         $initially_uploaded = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','initially_uploaded')->get();
-        $certified = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','certified')->get();
+        $certified = CertifiedCrop::where('farmer_id', $request->session()->get('user_id'))->get();
         $finally_uploaded = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','finally_uploaded')->get();
+        $crop_on_marketplace = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','on_marketplace')->get();
+
         $sold = Crops::where('farmer_id', $request->session()->get('user_id'))->where('status','sold')->get();
 
         $initially_uploaded_LC = Crops::where('status','initially_uploaded')->get();
@@ -90,6 +92,7 @@ class UserController extends Controller
             'sold' => $sold,
             'initially_uploaded_LC' => $initially_uploaded_LC,
             'certified_LC' => $certified_LC,
+            'crop_on_marketplace' => $crop_on_marketplace,
         ]);
     }
 
