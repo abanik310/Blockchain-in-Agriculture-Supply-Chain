@@ -10,6 +10,8 @@ use App\models\Storage;
 use App\models\Marketplace;
 use App\models\Tokenization;
 use App\models\Cart;
+use App\models\Order;
+use App\models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -346,6 +348,7 @@ class CropController extends Controller
             $add_to_cart->quantity = $cart_item->quantity;
             $add_to_cart->quantity_type = $cart_item->quantity_type;
             $add_to_cart->price = $cart_item->price;
+            $add_to_cart->total_price = $add_to_cart->quantity * $cart_item->price;
             $add_to_cart->save(); 
         }
 
@@ -371,13 +374,89 @@ class CropController extends Controller
         $cart_list = DB::table("tbl_cart")
 
             ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_cart.crop_id')
-            ->join('tbl_users', 'tbl_crops.farmer_id', '=', 'tbl_users.id')
+            ->join('tbl_users', 'tbl_cart.farmer_id', '=', 'tbl_users.id')
             ->where('tbl_cart.id', '=', $request->id)
-            ->select('tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name','tbl_cart.quantity','tbl_cart.id','tbl_cart.quantity_type','tbl_cart.price')
-            ->get();
+            ->select('tbl_cart.id','tbl_cart.total_price','tbl_cart.crop_id','tbl_cart.farmer_id','tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name','tbl_cart.quantity','tbl_cart.id','tbl_cart.quantity_type','tbl_cart.price')
+            ->first();
+
+        
+            $order = new Order();
+            $order->invoice_id = '200' . $cart_list->id;
+            $order->crop_id = $cart_list->crop_id;
+            $order->farmer_id = $cart_list->farmer_id;
+            $order->consumer_id = $request->session()->get('user_id');
+            $order->quantity = $cart_list->quantity;
+            $order->quantity_type = $cart_list->quantity_type;
+            $order->price = $cart_list->price;
+            $order->total_price = $cart_list->total_price;
+            $order->status = 'initial';
+            $order->token = $cart_list->token;
+            $order->cart_id = $cart_list->id;
+            $order->save();
+            // $invoice->order_id = $order->id;
+            // $invoice->save();
+            $consumer_name = DB::table("tbl_order")
+            ->join('tbl_users', 'tbl_order.consumer_id', '=', 'tbl_users.id')
+            ->where('tbl_order.consumer_id', '=', $order->consumer_id)
+            ->select('tbl_users.fullname')
+            ->first();
+
+        //echo "<pre>";print_r($order);exit;
+        return view('view_make_payment',[
+            'cart_list' => $cart_list,
+            'order' => $order,
+            'consumer_name' => $consumer_name,
+        ]);
+    }
+
+    function submit_payment(Request $request)
+    {     
+        //echo $request->order_id;exit;
+        
+        $order_item = DB::table("tbl_order")
+
+            ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_order.crop_id')
+            ->join('tbl_users', 'tbl_crops.farmer_id', '=', 'tbl_users.id')
+            ->where('tbl_order.id', '=', $request->order_id)
+            ->select('tbl_users.balance as consumer_balance','tbl_users.balance','tbl_order.total_price','tbl_order.crop_id','tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name')
+            ->first();
+            
+             if($order_item->consumer_balance >= $order_item->total_price)
+             {
+                echo "if";exit;
+             }
+             else
+             {
+                echo "else";exit;
+             }
+        
+            $order = new Order();
+            //$invoice = new Invoice();
+            $order->invoice_id = '200' . $cart_list->id;
+            $order->crop_id = $cart_list->crop_id;
+            $order->farmer_id = $cart_list->farmer_id;
+            $order->consumer_id = $request->session()->get('user_id');
+            $order->quantity = $cart_list->quantity;
+            $order->quantity_type = $cart_list->quantity_type;
+            $totalPrice = $cart_list->quantity * $cart_list->price;
+            $order->total_price = $totalPrice;
+            $order->status = 'initial';
+            $order->token = $cart_list->token;
+            $order->cart_id = $cart_list->id;
+            $order->save();
+            // $invoice->order_id = $order->id;
+            // $invoice->save();
+            $consumer_name = DB::table("tbl_order")
+            ->join('tbl_users', 'tbl_order.consumer_id', '=', 'tbl_users.id')
+            ->where('tbl_order.consumer_id', '=', $order->consumer_id)
+            ->select('tbl_users.fullname')
+            ->first();
+
         //print_r($cart_list);exit;
         return view('view_make_payment',[
             'cart_list' => $cart_list,
+            'order' => $order,
+            'consumer_name' => $consumer_name,
         ]);
     }
     

@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/add_cart', ['as' => 'add_cart', 'uses' => '\App\Http\Controllers\CropController@add_cart']);
 
     Route::get('/make_payment', ['as' => 'make_payment', 'uses' => '\App\Http\Controllers\CropController@view_make_payment']);
+    Route::get('/submit_payment', ['as' => 'submit_payment', 'uses' => '\App\Http\Controllers\CropController@submit_payment']);
 
 
     Route::post('/add_cart', ['as' => 'add_cart', 'uses' => '\App\Http\Controllers\CropController@add_cart']);

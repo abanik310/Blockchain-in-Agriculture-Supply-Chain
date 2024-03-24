@@ -90,46 +90,47 @@
                     
                     <!-- /.col -->
                     <div class="col-sm-4 invoice-col">
-                      <b>Invoice #007612</b><br>
+                      <b>Invoice #{{$order->invoice_id}}</b><br>
                       <br>
-                      <b>Order ID:</b> 4F3S8J<br>
-                      <b>Payment Due:</b> 2/22/2014<br>
-                      <b>Account:</b> 968-34567
+                      <b>Order ID:</b> {{$order->id}}<br>
+                      <b>Consumer Name:</b> {{ucwords($consumer_name->fullname)}}
+                      
                     </div>
                     <!-- /.col -->
                   </div>
                   <!-- /.row -->
-    
+                  <br><br>
                   <!-- Table row -->
                   <div class="row">
                     <div class="col-12 table-responsive">
                       <table class="table table-striped">
                         <thead>
-                        <tr>
-                          <th>Qty</th>
-                          <th>Qty Type</th>
-                          <th>Product</th>
-                          <th>Farmer Name</th>
-                          <th>Token</th>
-                          <th>Subtotal</th>
-                        </tr>
+                            <tr>
+                                <th>Qty</th>
+                                <th>Qty Type</th>
+                                <th>Product</th>
+                                <th>Farmer Name</th>
+                                <th>Token</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          @foreach ($cart_list as $info)
-                          <tr>
-                              <td>{{ $info->quantity }}</td>
-                              <td>{{ $info->quantity_type }}</td>
-                              <td>{{ $info->crop_name }}</td>
-                              <td>{{ $info->farmer_name }}</td>
-                              <td>{{ $info->token }}</td>
-                              
-                              <td>{{ $info->price }}</td>
-                              
-                              <!-- Add more columns as needed -->
-                          </tr>
-                      @endforeach
+                            @if($cart_list)
+                                <tr>
+                                    <td>{{ $cart_list->quantity }}</td>
+                                    <td>{{ $cart_list->quantity_type }}</td>
+                                    <td>{{ $cart_list->crop_name }}</td>
+                                    <td>{{ $cart_list->farmer_name }}</td>
+                                    <td>{{ $cart_list->token }}</td>
+                                    
+                                    <!-- Add more columns as needed -->
+                                </tr>
+                            @else
+                                <tr>
+                                    <td colspan="6">No items found</td>
+                                </tr>
+                            @endif
                         </tbody>
-                      </table>
+                    </table>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -141,36 +142,40 @@
                       <p class="lead">Payment Methods:</p>
                       <img src="../../dist/img/credit/visa.png" alt="Visa">
                       <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                      <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                      <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+                      <img src="../../dist/img/credit/nagad.png" alt="Nagad" style="width: 80px;">
+                      <img src="../../dist/img/credit/bkash.png" alt="Bkash" style="width: 80px;">
     
-                      <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                      {{-- <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
                         plugg
                         dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                      </p>
+                      </p> --}}
                     </div>
                     <!-- /.col -->
                     <div class="col-6">
-                      <p class="lead">Amount Due 2/22/2014</p>
     
                       <div class="table-responsive">
                         <table class="table">
                           <tr>
-                            <th style="width:50%">Subtotal:</th>
-                            <td>$250.30</td>
+                            <th style="width:50%">Total:</th>
+                            @php
+                                $total_price = $cart_list->price * $cart_list->quantity
+                            @endphp
+                            <td>${{ $total_price }}</td>
                           </tr>
                           <tr>
-                            <th>Tax (9.3%)</th>
-                            <td>$10.34</td>
+                            <th>Logistic Company (1%)</th>
+                            <td>${{ number_format($total_price * 0.01, 2) }}</td>
+
                           </tr>
                           <tr>
-                            <th>Shipping:</th>
-                            <td>$5.80</td>
+                            <th>Shipping (2%)</th>
+                            <td>${{ number_format($total_price * 0.02, 2) }}</td>
+
                           </tr>
                           <tr>
-                            <th>Total:</th>
-                            <td>$265.24</td>
+                            <th>Sub Total:</th>
+                            <td>${{ number_format($total_price + ($total_price * 0.01) + ($total_price * 0.02), 2) }}</td>
                           </tr>
                         </table>
                       </div>
@@ -183,9 +188,8 @@
                   <div class="row no-print">
                     <div class="col-12">
                       <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                      <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                        Payment
-                      </button>
+                      <a href="{{ route('submit_payment', ['order_id' => $order->id]) }}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Payment</a>
+
                       <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                         <i class="fas fa-download"></i> Generate PDF
                       </button>

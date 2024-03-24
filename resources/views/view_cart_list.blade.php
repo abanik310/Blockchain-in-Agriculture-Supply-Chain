@@ -67,6 +67,7 @@
                         <thead>
                             <tr>
                                 
+                                <th>SL</th>
                                 <th>Crop Name</th>
                                 <th>Farmer Name</th>
                                 <th>Quantity Type</th>
@@ -76,8 +77,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                          @php $counter = 1; @endphp
                             @foreach ($cart_list as $info)
                                 <tr>
+                                    <td>{{ $counter ++ }}</td>
                                     <td>{{ $info->crop_name }}</td>
                                     <td>{{ $info->farmer_name }}</td>
                                     <td>{{ $info->quantity_type }}</td>
