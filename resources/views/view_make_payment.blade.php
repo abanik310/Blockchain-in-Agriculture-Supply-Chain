@@ -49,6 +49,9 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
+        @include('partials.success')
+        @include('partials.error')
+
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Make Payment</h1>
@@ -188,8 +191,11 @@
                   <div class="row no-print">
                     <div class="col-12">
                       <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                      <a href="{{ route('submit_payment', ['order_id' => $order->id]) }}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Payment</a>
-
+                      @if($order->status == 'paid')
+                      <a href="#" class="btn btn-success float-right" disabled><i class="far fa-credit-card"></i> Submit Payment</a>
+                      @else
+                          <a href="{{ route('submit_payment', ['order_id' => $order->id]) }}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit Payment</a>
+                      @endif
                       <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                         <i class="fas fa-download"></i> Generate PDF
                       </button>

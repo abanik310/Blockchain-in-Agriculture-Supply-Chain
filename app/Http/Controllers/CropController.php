@@ -12,7 +12,9 @@ use App\models\Tokenization;
 use App\models\Cart;
 use App\models\Order;
 use App\models\Invoice;
+use App\models\Recharge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -90,6 +92,7 @@ class CropController extends Controller
         
         $crop_for_private_key = new PrivateKeyGenerate();
         $crop_for_private_key->crop_id = $request->crop_id;
+        $crop_for_private_key->owner_id = $request->session()->get('user_id');
         $crop_for_private_key->save();
 
         $crop = Crops::where('id', $request->crop_id)->first();
@@ -368,40 +371,46 @@ class CropController extends Controller
         ]);
     }
 
-    function view_make_payment(Request $request)
+    public function view_make_payment(Request $request)
     {     
-        //echo $request->id;exit;
-        $cart_list = DB::table("tbl_cart")
+        // Check if the order has already been created
+        if (Session::has('order_created')) {
+            // Redirect to a route or display a message indicating that the order has already been created
+            return redirect()->route('cart_list'); // Replace 'order.created' with your desired route name
+        }
 
+        $cart_list = DB::table("tbl_cart")
             ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_cart.crop_id')
             ->join('tbl_users', 'tbl_cart.farmer_id', '=', 'tbl_users.id')
             ->where('tbl_cart.id', '=', $request->id)
             ->select('tbl_cart.id','tbl_cart.total_price','tbl_cart.crop_id','tbl_cart.farmer_id','tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name','tbl_cart.quantity','tbl_cart.id','tbl_cart.quantity_type','tbl_cart.price')
             ->first();
 
-        
-            $order = new Order();
-            $order->invoice_id = '200' . $cart_list->id;
-            $order->crop_id = $cart_list->crop_id;
-            $order->farmer_id = $cart_list->farmer_id;
-            $order->consumer_id = $request->session()->get('user_id');
-            $order->quantity = $cart_list->quantity;
-            $order->quantity_type = $cart_list->quantity_type;
-            $order->price = $cart_list->price;
-            $order->total_price = $cart_list->total_price;
-            $order->status = 'initial';
-            $order->token = $cart_list->token;
-            $order->cart_id = $cart_list->id;
-            $order->save();
-            // $invoice->order_id = $order->id;
-            // $invoice->save();
-            $consumer_name = DB::table("tbl_order")
+        $order = new Order();
+        $order->invoice_id = '200' . $cart_list->id;
+        $order->crop_id = $cart_list->crop_id;
+        $order->farmer_id = $cart_list->farmer_id;
+        $order->consumer_id = $request->session()->get('user_id');
+        $order->quantity = $cart_list->quantity;
+        $order->quantity_type = $cart_list->quantity_type;
+        $order->price = $cart_list->price;
+        $order->total_price = $cart_list->total_price;
+        $order->status = 'initial';
+        $order->token = $cart_list->token;
+        $order->cart_id = $cart_list->id;
+        $order->save();
+
+        // Mark that the order has been created using session flash data
+        Session::flash('order_created', true);
+
+        // Fetch consumer name
+        $consumer_name = DB::table("tbl_order")
             ->join('tbl_users', 'tbl_order.consumer_id', '=', 'tbl_users.id')
-            ->where('tbl_order.consumer_id', '=', $order->consumer_id)
+            ->where('tbl_order.consumer_id', '=', $request->session()->get('user_id'))
             ->select('tbl_users.fullname')
             ->first();
 
-        //echo "<pre>";print_r($order);exit;
+        // Return the view with necessary data
         return view('view_make_payment',[
             'cart_list' => $cart_list,
             'order' => $order,
@@ -418,46 +427,69 @@ class CropController extends Controller
             ->join('tbl_crops', 'tbl_crops.id', '=', 'tbl_order.crop_id')
             ->join('tbl_users', 'tbl_crops.farmer_id', '=', 'tbl_users.id')
             ->where('tbl_order.id', '=', $request->order_id)
-            ->select('tbl_users.balance as consumer_balance','tbl_users.balance','tbl_order.total_price','tbl_order.crop_id','tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name')
+            ->select('tbl_order.id','tbl_order.farmer_id','tbl_users.balance as farmer_balance','tbl_order.total_price','tbl_order.crop_id','tbl_crops.crop_name','tbl_crops.token','tbl_users.fullname as farmer_name')
             ->first();
+
+        $consumer_details = DB::table("tbl_order")
+            ->join('tbl_users', 'tbl_order.consumer_id', '=', 'tbl_users.id')
+            ->where('tbl_order.id', '=', $request->order_id)
+            ->select('tbl_users.balance as consumer_balance','tbl_order.total_price','tbl_order.consumer_id','tbl_users.fullname as farmer_name')
+            ->first();
+
+        $farmer_info = User::where('id',$order_item->farmer_id)->first();
+        $consumer_info = User::where('id',$consumer_details->consumer_id)->first();
+
+        //echo "<pre>";print_r($consumer_info);exit;
             
-             if($order_item->consumer_balance >= $order_item->total_price)
+             if($consumer_details->consumer_balance >= $order_item->total_price)
              {
-                echo "if";exit;
+                //echo "if";exit;
+
+                $private_key = PrivateKeyGenerate::where('crop_id', $order_item->crop_id)->first();
+                $private_key->delete();
+
+                $private_key = new PrivateKeyGenerate();
+                $private_key->crop_id = $order_item->crop_id;
+                $private_key->owner_id = $request->session()->get('user_id');
+                $private_key->save();
+
+                $storage = Storage::where('crop_id', $order_item->crop_id)->first();
+
+                $tokenization = Tokenization::where('crop_id', $order_item->crop_id)->first();
+                $tokenization->owner_id = $request->session()->get('user_id');
+                $tokenization->private_key = $private_key->id;
+                $tokenization->token = $tokenization->owner_id . $tokenization->crop_id . strtoupper(substr($storage->storage_area, -2)) . $tokenization->private_key . strtoupper(substr($storage->storage_area, 0, 3));
+                $tokenization->save();
+
+                $storage->private_key = $private_key->id;
+                $storage->token = $tokenization->owner_id . $tokenization->crop_id . strtoupper(substr($storage->storage_area, -2)) . $tokenization->private_key . strtoupper(substr($storage->storage_area, 0, 3));
+                $storage->save();
+
+                $crop = Crops::where('id', $order_item->crop_id)->first();
+                $crop->status = 'sold';
+                $crop->save();
+
+                $consumer_new_balance = $consumer_info->balance - $order_item->total_price;
+                $consumer_info->balance = $consumer_new_balance;
+                $consumer_info->save();
+
+                $farmer_new_balance = $farmer_info->balance + $order_item->total_price;
+                $farmer_info->balance = $farmer_new_balance;
+                $farmer_info->save();
+
+                $order = Order::where('id', $order_item->id)->first();
+                $order->status = 'paid';
+                $order->save();
              }
              else
              {
-                echo "else";exit;
+                return redirect()->back()->with('error', 'Insufficient Balance...Please Recharge!');
+
              }
         
-            $order = new Order();
-            //$invoice = new Invoice();
-            $order->invoice_id = '200' . $cart_list->id;
-            $order->crop_id = $cart_list->crop_id;
-            $order->farmer_id = $cart_list->farmer_id;
-            $order->consumer_id = $request->session()->get('user_id');
-            $order->quantity = $cart_list->quantity;
-            $order->quantity_type = $cart_list->quantity_type;
-            $totalPrice = $cart_list->quantity * $cart_list->price;
-            $order->total_price = $totalPrice;
-            $order->status = 'initial';
-            $order->token = $cart_list->token;
-            $order->cart_id = $cart_list->id;
-            $order->save();
-            // $invoice->order_id = $order->id;
-            // $invoice->save();
-            $consumer_name = DB::table("tbl_order")
-            ->join('tbl_users', 'tbl_order.consumer_id', '=', 'tbl_users.id')
-            ->where('tbl_order.consumer_id', '=', $order->consumer_id)
-            ->select('tbl_users.fullname')
-            ->first();
+             return redirect()->back()->with('success', 'Crop Purchase Succussfully Done!');
 
-        //print_r($cart_list);exit;
-        return view('view_make_payment',[
-            'cart_list' => $cart_list,
-            'order' => $order,
-            'consumer_name' => $consumer_name,
-        ]);
+       
     }
     
     
