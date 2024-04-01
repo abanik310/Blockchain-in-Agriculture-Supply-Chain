@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\models\User;
 use App\models\Crops;
 use App\models\CertifiedCrop;
+use App\models\Recharge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -118,7 +119,11 @@ class UserController extends Controller
 
     function recharge_balance_view(Request $request)
     {     
-        return view('view_recharge_balance');
+        $recharge = Recharge::where('user_id', session('user_id'))->get();
+
+        return view('view_recharge_balance',[
+            'recharge' => $recharge,
+        ]);
     }
 
     function recharge_amount(Request $request, $amount)
@@ -131,7 +136,14 @@ class UserController extends Controller
         $newBalance = $currentBalance + $amount;
         $user->balance = $newBalance;
         $user->save();
-        session(['balance' => $newBalance]); // Update the balance in the session
+
+         
+        $recharge = new Recharge;
+        $recharge->recharge_amount = $request->amount;
+        $recharge->user_id = $request->session()->get('user_id');
+        $recharge->save();
+
+        session(['balance' => $newBalance]); 
 
         return redirect()->back()->with('success', 'Balance recharged successfully!');
     }

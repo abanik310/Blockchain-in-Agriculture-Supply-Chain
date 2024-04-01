@@ -53,7 +53,7 @@
           </div><!-- /.col -->
         </div>
           
-
+        
         <div class="col-lg-12">
           <div class="card">
             <!-- /.card-header -->
@@ -89,6 +89,45 @@
           </div>
               <!-- /.card-body -->
           </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>Recharge History</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="card-body table-responsive p-0">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th class="text-center">SL</th>
+                          <th class="text-center">Recharge Amount</th>
+                          <th class="text-center">Recharge Date</th>
+                          
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @php $counter = 1; @endphp
+                      @foreach ($recharge as $recharge_info)
+                          <tr>
+                              <td class="text-center">{{ $counter ++ }}</td>
+                              <td class="text-center">{{ $recharge_info->recharge_amount }}</td>
+                              <td class="text-center">{{ $recharge_info->created_at->format('d F, Y') }}</td>
+
+                              
+                              <!-- Add more columns as needed -->
+                          </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
+            <!-- /.card-body -->
+        </div>
       </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
